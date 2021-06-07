@@ -1,6 +1,6 @@
 #' Check controls for the variable neighborhood trust region search.
 #' @description Function that checks the controls for the variable neighborhood trust region search.
-#' @details See the README file for details on the controls.
+#' @details See the README file for details.
 #' @param vntrs_controls A list of controls.
 #' @return \code{vntrs_controls}
 

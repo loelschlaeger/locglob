@@ -11,27 +11,27 @@ vntrs_neighborhood = function(target, x, neighborhood_size, vntrs_controls) {
   ### list of neighbors
   z = list()
   
-  ### compute eigenvectors and -values of Hessian
+  ### compute eigenvectors and eigenvalues of Hessian
   H_f = target(x)$hessian
   H_f_eig = eigen(H_f)
   v = H_f_eig$vectors
   lambda = H_f_eig$values
   
   ### tuning parameter
-  d_k = 1.5^(k-1)
+  d_k = 1.5^(neighborhood_size-1)
   
-  ### selection probabilities
-  p_v = exp(beta*lambda/d_k)
+  ### set selection probabilities
+  p_v = exp(vntrs_controls$neighbor_beta * lambda/d_k)
   p_v = p_v / sum(p_v)
   
   ### select neighbors
-  for(j in 1:p){
+  for(j in 1:vntrs_controls$neighbor_number){
     
     alpha = runif(1,0.75,1)
     dir = sample(c(-1,1),1)
     
     ### select eigenvector
-    v_i = v[,sample(1:length(lambda),n=1,prob=p_v)]
+    v_i = v[,sample(1:length(lambda),size=1,prob=p_v)]
     
     ### compute neighbor value
     z[[j]] = x + alpha * d_k * dir * v_i

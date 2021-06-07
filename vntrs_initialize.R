@@ -3,7 +3,7 @@
 #' @param target A function that computes value, gradient, and Hessian of the function to be optimized and returns them as a list with components \code{value}, \code{gradient}, and \code{hessian}.
 #' @param npar The number of parameters of \code{target}.
 #' @param vntrs_controls A list of controls.
-#' @return A list of the set of found local optima and initially best parameter values.
+#' @return A list of the set of identified local optima and best initial parameter values.
 
 vntrs_initialize = function(target, npar, vntrs_controls){
   
@@ -61,6 +61,6 @@ vntrs_initialize = function(target, npar, vntrs_controls){
     x_best = local_search_long$argument
   }
   
-  ### return set of found local optima and initially best parameter values
+  ### return set of identified local optima and initially best parameter values
   return(list("L" = L, "x_best" = x_best))
 }

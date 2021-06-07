@@ -4,6 +4,7 @@
 
 ### general controls
 - minimize: A boolean, specifying whether to minimize (TRUE) or to maximize (FALSE).
+- nmax: The maximal number of nested neighborhoods.
 
 ### initialization
 - init_runs: A positive integer specifying the number of random initializations.
@@ -17,5 +18,5 @@
 - interrupt_rate: A numeric between 0 and 1, determining the rate to check for premature interruption.
 
 ### neighborhood selection
-- neighbor_number: number of neighbors
-- neighbor_beta: weight factor
+- neighbor_number: The number of neighbors in each neighborhood.
+- neighbor_beta: A weight factor to account for the function's curvature in the neighborhood selection.
