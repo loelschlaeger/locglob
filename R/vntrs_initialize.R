@@ -33,12 +33,12 @@ vntrs_initialize = function(target, npar, vntrs_controls){
     
     ### save local optimum (if one has been found)
     if(local_searches[[n]]$success){
-      L = c(L,list(local_searches[[n]]$argument))
+      L = c(L,list(local_searches[[n]]))
     }
   }
   
   ### select best candidate
-  candidates = unlist(lapply(local_searches,function(x) target(x$argument)$value))
+  candidates = unlist(lapply(local_searches,function(x) x$value))
   if(vntrs_controls$minimize){
     j_hat = which.min(candidates)
   } else {
@@ -61,6 +61,6 @@ vntrs_initialize = function(target, npar, vntrs_controls){
     x_best = local_search_long$argument
   }
   
-  ### return set of identified local optima and initially best parameter values
+  ### return set of identified local optima and initially best parameter value vector
   return(list("L" = L, "x_best" = x_best))
 }

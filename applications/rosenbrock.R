@@ -16,18 +16,33 @@ target <- function(x) {
   list(value = f, gradient = g, hessian = B)
 }
 
+### valley surface
+### 1 global minimum
+### minimal function value: 0
+library(plotly)
+x = seq(-3,3,0.1)
+y = seq(-3,3,0.1)
+grid = expand.grid(x=x,y=y)
+grid$z = apply(grid,1,function(x)target(x)$value)
+plot_ly() %>% 
+  add_trace(data=grid, x=grid$x, y=grid$y, z=grid$z, type="mesh3d") 
+
 ### number of parameter
 npar = 2
 
 ### controls
 vntrs_controls = list(minimize = TRUE,
-  
-                      init_runs = 5,
+                      nmax = 5,
+                      init_runs = 1000,
                       init_min = -10,
                       init_max = 10,
                       init_iterlim_short = 20,
                       init_iterlim_long = 1000,
-                      
-                      neighbor = NULL,
                       iterlim = 100,
-                      interrupt_rate = 0.5)
+                      interrupt_rate = 0.5,
+                      neighbor_number = 10,
+                      neighbor_beta = 0.05)
+
+### vntrs
+vntrs(target, npar, vntrs_controls)
+

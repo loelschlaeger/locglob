@@ -11,7 +11,7 @@
 vntrs_local_search = function(target, par_init, iterlim, interrupt_rate, minimize, L) {
   
   ### determine number of batches based on interrupt_rate
-  if(interrupt_rate == 0){
+  if(length(L) == 0 || interrupt_rate == 0){
     batches = 1
   } else if(interrupt_rate == 1){
     batches = iterlim
@@ -28,17 +28,18 @@ vntrs_local_search = function(target, par_init, iterlim, interrupt_rate, minimiz
                        rmax = 10, 
                        iterlim = ceiling(iterlim/batches), 
                        minimize = minimize, 
-                       blather = TRUE)
+                       blather = FALSE)
     
     ### check if local search can be interrupted prematurely
     if(length(L) > 0) 
       if(vntrs_interrupt(target = target, 
                          par_curr = out$argument, 
-                         L = L)) 
-        return(list("success" = FALSE, "value" = NA))
+                         L = L,
+                         minimize = vntrs_controls$minimize)) 
+        return(list("success" = FALSE, "value" = NA, "argument" = NA))
     
     par_init = out$argument
   }
   
-  return(list("success" = out$converged, "value" = out$argument))
+  return(list("success" = out$converged, "value" = out$value, "argument" = out$argument))
 }

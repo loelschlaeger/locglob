@@ -19,21 +19,38 @@ target = function(x) {
   list(value = f, gradient = g, hessian = B)
 }
 
+### rough surface with many optima
+### 18 global minima
+### 742 local minima
+### minimal function value: -186.7309
+library(plotly)
+x = seq(-10,10,0.1)
+y = seq(-10,10,0.1)
+grid = expand.grid(x=x,y=y)
+grid$z = apply(grid,1,function(x)target(x)$value)
+plot_ly() %>% 
+  add_trace(data=grid,  x=grid$x, y=grid$y, z=grid$z, type="mesh3d") 
+
 ### number of parameter
 npar = 2
 
 ### controls
 vntrs_controls = list(minimize = TRUE,
-                      nmax = 5,
-                      
-                      init_runs = 5,
+                      nmax = 2,
+                      init_runs = 1000,
                       init_min = -10,
                       init_max = 10,
                       init_iterlim_short = 20,
                       init_iterlim_long = 1000,
-                      
-                      iterlim = 1000,
-                      interrupt_rate = 0.5,
-                      
-                      neighbor_number = 5,
+                      iterlim = 100,
+                      interrupt_rate = 1,
+                      neighbor_number = 10,
                       neighbor_beta = 0.05)
+
+### vntrs
+start = Sys.time()
+out = vntrs(target, npar, vntrs_controls)
+end = Sys.time()
+
+difftime(end,start,"mins")
+

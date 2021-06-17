@@ -42,16 +42,43 @@ vntrs = function(target, npar, vntrs_controls) {
       
       ### save local optimum (if one has been found)
       if(local_searches[[j]]$success){
-        L = c(L,local_searches[[j]]$parm)
+        L = c(L,list(local_searches[[j]]))
       }
     }
     
-    x_best_new = L[[which.max(unlist(lapply(L,function(x) target(x)$value)))]]
+    if(vntrs_controls$minimize){
+      x_best_new = L[[which.min(unlist(lapply(L,function(x) x$value)))]]$argument
+    } else {
+      x_best_new = L[[which.max(unlist(lapply(L,function(x) x$value)))]]$argument
+    }
     
     ### check if better local optimum found
     k = ifelse(any(x_best != x_best_new), 1, k+1)
     x_best = x_best_new
   }
   
-  return(x_best)
+  if(length(L) == 0) return(NULL)
+  
+  ### remove success information
+  for(i in 1:length(L)) L[[i]]$success = NULL
+  
+  ### remove redundant optima
+  local = list(L[[1]])
+  for(i in 2:length(L)){
+    if(!list(round(L[[i]]$argument,5)) %in% lapply(local,function(x)round(x$argument,5))){
+      local = c(local, list(L[[i]]))
+    }
+  }
+  
+  ### return global and local optima
+  if(vntrs_controls$minimize){
+    ind_gl = which(unlist(lapply(local,function(x)x$value)) == min(unlist(lapply(local,function(x)x$value))))
+  } else {
+    ind_gl = which(unlist(lapply(local,function(x)x$value)) == max(unlist(lapply(local,function(x)x$value))))
+  }
+  global = local[ind_gl]
+  local[ind_gl] = NULL
+  out = list(global, local)
+  names(out) = paste(c("global","local"),ifelse(vntrs_controls$minimize,"min","max"),sep="_")
+  return(out)
 }
