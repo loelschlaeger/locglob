@@ -1,20 +1,31 @@
-#' Perform variable neighborhood trust region search.
-#' @description Function that performs variable neighborhood trust region search.
-#' @details See the README file for details and examples on how to specify \code{controls}.
-#' @references This is an implementation of the heuristic presented in "A Heuristic for Nonlinear Global Optimization" (Bierlaire et al., 2009) <https://doi.org/10.1287/ijoc.1090.0343>.
-#' @param target A function that computes value, gradient, and Hessian of the function to be optimized and returns them as a list with components \code{value}, \code{gradient}, and \code{hessian}.
-#' @param npar The number of parameters of \code{target}.
-#' @param controls A list of controls.
-#' @return The point at which the optimal value of \code{target} is obtained.
+#' Identify local and global optima.
+#' @description
+#' Function that identifies local and global optima applying variable
+#' neighborhood trust region search.
+#' @details
+#' See the README file for details and examples on how to specify \code{controls}.
+#' @references
+#' Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"
+#' <https://doi.org/10.1287/ijoc.1090.0343>
+#' @param f
+#' A function that computes value, gradient, and Hessian of the function to be
+#' optimized and returns them as a list with components \code{value},
+#' \code{gradient}, and \code{hessian}.
+#' @param npar
+#' The number of parameters of \code{f}.
+#' @param controls
+#' A list of controls.
+#' @return
+#' A list of local and global optima of \code{f}.
 #' @export
 
-search = function(target, npar, controls) {
+search = function(f, npar, controls) {
 
   ### check controls
-  controls = check_controls(controls)
+  controls = check(controls)
 
   ### initialization of variable neighborhood search
-  initialization = initialize(target = target, npar = npar, controls = controls)
+  initialization = initialize(f = f, npar = npar, controls = controls)
   L = initialization$L
   x_best = initialization$x_best
 
@@ -23,17 +34,17 @@ search = function(target, npar, controls) {
   while(k <= controls$nmax){
 
     ### select neighbors
-    z = neighborhood(target = target, x = x_best, neighborhood_size = k, controls = controls)
+    z = spread(f = f, x = x_best, neighborhood_size = k, controls = controls)
 
     ### perform local search around neighbors
     local_searches = list()
     for(j in 1:length(z)){
-      local_searches[[j]] = local_search(target = target,
-                                         par_init = z[[j]],
-                                         iterlim = controls$iterlim,
-                                         interrupt_rate = controls$interrupt_rate,
-                                         minimize = controls$minimize,
-                                         L = L)
+      local_searches[[j]] = local(f = f,
+                                  par_init = z[[j]],
+                                  iterlim = controls$iterlim,
+                                  interrupt_rate = controls$interrupt_rate,
+                                  minimize = controls$minimize,
+                                  L = L)
 
       ### save local optimum (if one has been found)
       if(local_searches[[j]]$success) L = c(L,list(local_searches[[j]]))
@@ -52,28 +63,7 @@ search = function(target, npar, controls) {
 
   }
 
-  if(length(L) == 0) return(NULL)
-
-  ### remove success information
-  for(i in 1:length(L)) L[[i]]$success = NULL
-
-  ### remove redundant optima
-  local = list(L[[1]])
-  for(i in 2:length(L)){
-    if(!list(round(L[[i]]$argument,5)) %in% lapply(local,function(x)round(x$argument,5))){
-      local = c(local, list(L[[i]]))
-    }
-  }
-
-  ### return global and local optima
-  if(controls$minimize){
-    ind_gl = which(unlist(lapply(local,function(x)x$value)) == min(unlist(lapply(local,function(x)x$value))))
-  } else {
-    ind_gl = which(unlist(lapply(local,function(x)x$value)) == max(unlist(lapply(local,function(x)x$value))))
-  }
-  global = local[ind_gl]
-  local[ind_gl] = NULL
-  out = list(global, local)
-  names(out) = paste(c("global","local"),ifelse(controls$minimize,"min","max"),sep="_")
-  return(out)
+  ### prepare output
+  out = evaluate(L,controls)
+  return(invisible(out))
 }

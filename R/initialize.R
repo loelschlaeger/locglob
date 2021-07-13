@@ -1,11 +1,19 @@
 #' Initialize variable neighborhood trust region search.
-#' @description Function that initializes the variable neighborhood trust region search.
-#' @param target A function that computes value, gradient, and Hessian of the function to be optimized and returns them as a list with components \code{value}, \code{gradient}, and \code{hessian}.
-#' @param npar The number of parameters of \code{target}.
-#' @param controls A list of controls.
-#' @return A list of the set of identified local optima and best initial parameter values.
+#' @description
+#' Function that initializes the variable neighborhood trust region search.
+#' @param f
+#' A function that computes value, gradient, and Hessian of the function to be
+#' optimized and returns them as a list with components \code{value},
+#' \code{gradient}, and \code{hessian}.
+#' @param npar
+#' The number of parameters of \code{f}.
+#' @param controls
+#' A list of controls.
+#' @return
+#' A list of the set of identified local optima \code{L} and best initial
+#' parameter values \code{x_best}.
 
-initialize = function(target, npar, controls){
+initialize = function(f, npar, controls){
 
   ### initialize list of identified local optima
   L = list()
@@ -16,10 +24,12 @@ initialize = function(target, npar, controls){
 
   ### search locally (for a small number of iterations) at random starting points
   local_searches = list()
-  for(n in 1:vcontrols$init_runs){
+  cat("* initialize\n")
+  for(n in 1:controls$init_runs){
 
     ### perform local search
-    local_search_short = trust::trust(objfun = target,
+    cat(sprintf("* %.0f%% \r",(n-1)/controls$init_runs*100))
+    local_search_short = trust::trust(objfun = f,
                                       parinit = y[n,],
                                       rinit = 1,
                                       rmax = 10,
@@ -32,9 +42,7 @@ initialize = function(target, npar, controls){
                                "argument" = local_search_short$argument)
 
     ### save local optimum (if one has been found)
-    if(local_searches[[n]]$success){
-      L = c(L,list(local_searches[[n]]))
-    }
+    if(local_searches[[n]]$success) L = collect(L,local_searches[[n]])
   }
 
   ### select best candidate
@@ -52,7 +60,7 @@ initialize = function(target, npar, controls){
 
   } else {
     ### search locally again longer if no local optimum has been found yet
-    local_search_long = trust::trust(objfun = target,
+    local_search_long = trust::trust(objfun = f,
                                      parinit = local_searches[[j_hat]]$argument,
                                      rinit = 1,
                                      rmax = 10,

@@ -1,7 +1,9 @@
-#' Check controls for the variable neighborhood trust region search.
-#' @description Function that checks the controls for the variable neighborhood trust region search.
-#' @details See the README file for details.
-#' @param controls A list of controls.
+#' Check controls.
+#' @description Function that checks the controls locglob.
+#' @details
+#' See the README file for details and examples on how to specify \code{controls}.
+#' @param controls
+#' A list of controls.
 #' @return \code{controls}
 
 check = function(controls){

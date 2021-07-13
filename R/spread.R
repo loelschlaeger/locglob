@@ -1,18 +1,18 @@
 #' Select neighborhood.
 #' @description Function that selects neighbors around a given point.
-#' @param target A function that computes value, gradient, and Hessian of the function to be optimized and returns them as a list with components \code{value}, \code{gradient}, and \code{hessian}.
-#' @param x A point in the domain of \code{target}.
+#' @param f A function that computes value, gradient, and Hessian of the function to be optimized and returns them as a list with components \code{value}, \code{gradient}, and \code{hessian}.
+#' @param x A point in the domain of \code{f}.
 #' @param neighborhood_size A scaling factor specifying the size of the neighborhood.
 #' @param controls A list of controls for the variable neighborhood trust region search.
 #' @return A list of neighbors.
 
-neighborhood = function(target, x, neighborhood_size, controls) {
+spread = function(f, x, neighborhood_size, controls) {
 
   ### list of neighbors
   z = list()
 
   ### compute eigenvectors and eigenvalues of Hessian
-  H_f = target(x)$hessian
+  H_f = f(x)$hessian
   H_f_eig = eigen(H_f)
   v = H_f_eig$vectors
   lambda = H_f_eig$values

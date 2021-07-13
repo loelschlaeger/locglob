@@ -1,6 +1,6 @@
-# README of vntrs
+# README of locglob
 
-## vntrs_controls
+## controls
 
 ### general controls
 - minimize: A boolean, specifying whether to minimize (TRUE) or to maximize (FALSE).

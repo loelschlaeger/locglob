@@ -1,14 +1,14 @@
 #' Perform local search based on a trust-region framework.
 #' @description Function that performs local search based on a trust-region framework.
 #' @details The trust-region framework is provided by \link[trust]{trust}.
-#' @param target A function that computes value, gradient, and Hessian of the function to be optimized and returns them as a list with components \code{value}, \code{gradient}, and \code{hessian}.
+#' @param f A function that computes value, gradient, and Hessian of the function to be optimized and returns them as a list with components \code{value}, \code{gradient}, and \code{hessian}.
 #' @param par_init
 #' @param iterlim A positive integer specifying the maximum number of iterations to be performed before the local search is terminated.
 #' @param interrupt_rate A numeric between 0 and 1, determining the rate to check for premature interruption.
 #' @param L
 #' @return
 
-local = function(target, par_init, iterlim, interrupt_rate, minimize, L) {
+local = function(f, par_init, iterlim, interrupt_rate, minimize, L) {
 
   ### determine number of batches based on interrupt_rate
   if(length(L) == 0 || interrupt_rate == 0){
@@ -22,7 +22,7 @@ local = function(target, par_init, iterlim, interrupt_rate, minimize, L) {
   ### perform local search
   for(b in 1:batches){
 
-    out = trust::trust(objfun = target,
+    out = trust::trust(objfun = f,
                        parinit = par_init,
                        rinit = 1,
                        rmax = 10,
@@ -32,7 +32,7 @@ local = function(target, par_init, iterlim, interrupt_rate, minimize, L) {
 
     ### check if local search can be interrupted prematurely
     if(length(L) > 0)
-      if(interrupt(target = target, par_curr = out$argument, L = L, minimize = controls$minimize))
+      if(interrupt(f = f, par_curr = out$argument, L = L, minimize = controls$minimize))
         return(list("success" = FALSE, "value" = NA, "argument" = NA))
 
     par_init = out$argument

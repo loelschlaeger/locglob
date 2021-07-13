@@ -1,16 +1,18 @@
-Package: locglob
-Title: What the Package Does (One Line, Title Case)
+Package: ao
+Title: Identify and visualize local and global optima
 Version: 0.0.0.9000
+Date: 2021-07-07
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Lennart",
+           family = "Oelschl\U00E4ger",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "lennart.oelschlaeger@uni-bielefeld.de",
+           comment = c(ORCID = "0000-0001-5421-9313"))
+Description: 
+Identification and visualization of local and global optima based on a variable 
+neighborhood trust region framework (Bierlaire et al. (2009) 
+"A Heuristic for Nonlinear Global Optimization" <doi:10.1287/ijoc.1090.0343>). 
+License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1.9001
