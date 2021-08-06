@@ -6,7 +6,7 @@
 #' @param controls A list of controls for the variable neighborhood trust region search.
 #' @return A list of neighbors.
 
-spread = function(f, x, neighborhood_size, controls) {
+neighbors = function(f, x, neighborhood_size, controls) {
 
   ### list of neighbors
   z = list()
