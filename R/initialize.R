@@ -5,7 +5,12 @@
 #' @return
 #' A list of
 #' \itemize{
-#'   \item the set of identified local optima \code{L} and
+#'   \item the list \code{L} of identified optima which contains lists with
+#'     \itemize{
+#'       \item \code{value} and
+#'       \item \code{argument}
+#'     }
+#'     of each identified optimum.
 #'   \item best initial point \code{x_best}.
 #' }
 #' @example
@@ -28,12 +33,15 @@ initialize = function(f, npar, minimize, controls){
   for(n in seq_len(controls$init_runs)){
 
     ### perform local search
+    cat("** Run",n)
+    start = Sys.time()
     local_search = trust::trust(objfun = f,
                                 parinit = y[n,],
                                 rinit = 1,
                                 rmax = 10,
-                                iterlim = controls$init_iterlim_short,
+                                iterlim = controls$init_iterlim,
                                 minimize = minimize)
+    end = Sys.time()
 
     ### save local search
     local_searches[[n]] = list("success" = local_search$converged,
@@ -41,13 +49,14 @@ initialize = function(f, npar, minimize, controls){
                                "argument" = local_search$argument)
 
     ### save local optimum (if unique one has been found)
-    cat("** Run",n)
-    if(local_searches[[n]]$success)
+    cat(paste0(" [",sprintf("%.0f",difftime(end,start,unit="secs")),"s]"))
+    if(local_searches[[n]]$success){
       cat(" [success]")
       if(unique(L = L, argument = local_searches[[n]]$argument)){
         cat(" [unique]")
         L = c(L,list(local_searches[[n]]))
       }
+    }
     cat("\n")
   }
 
@@ -68,11 +77,11 @@ initialize = function(f, npar, minimize, controls){
                                      parinit = local_searches[[j_hat]]$argument,
                                      rinit = 1,
                                      rmax = 10,
-                                     iterlim = controls$init_iterlim_long,
+                                     iterlim = controls$iterlim,
                                      minimize = minimize)
     if(!local_search_long$converged)
       stop("Initialization failed. Consider increasing 'controls$init_runs',
-           'controls$init_iterlim_short' and 'controls$init_iterlim_long'.")
+           'controls$init_iterlim' and 'controls$iterlim'.")
     x_best = local_search_long$argument
   }
 

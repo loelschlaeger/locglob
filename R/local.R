@@ -1,42 +1,52 @@
-#' Perform local search based on a trust-region framework.
-#' @description Function that performs local search based on a trust-region framework.
-#' @details The trust-region framework is provided by \link[trust]{trust}.
-#' @param f A function that computes value, gradient, and Hessian of the function to be optimized and returns them as a list with components \code{value}, \code{gradient}, and \code{hessian}.
-#' @param par_init
-#' @param iterlim A positive integer specifying the maximum number of iterations to be performed before the local search is terminated.
-#' @param interrupt_rate A numeric between 0 and 1, determining the rate to check for premature interruption.
-#' @param L
+#' Perform trust region local search.
+#' @description
+#' Function that links to \code{\link[trust]{trust}}.
+#' @inheritParams check_f
+#' @param parinit
+#' Passed on to \code{\link[trust]{trust}}.
+#' @inheritParams unique
 #' @return
+#' A list of
+#' \itemize{
+#'   \item \code{success}: A boolean, determining wether the local search
+#'         successfully converged.
+#'   \item \code{value}: The value at the point where the local search
+#'         terminated.
+#'   \item \code{argument}: The point where the local search terminated.
+#' }
 
-local = function(f, par_init, iterlim, interrupt_rate, minimize, L) {
+local = function(f, parinit, minimize, controls, L) {
 
-  ### determine number of batches based on interrupt_rate
-  if(length(L) == 0 || interrupt_rate == 0){
+  ### determine number of batches based on 'controls$interruption_rate'
+  if(length(L)==0 || controls$interruption_rate == 0){
     batches = 1
-  } else if(interrupt_rate == 1){
-    batches = iterlim
+  } else if(controls$interruption_rate == 1){
+    batches = controls$iterlim
   } else {
-    batches = min(iterlim, max(interrupt_rate*iterlim,1))
+    batches = min(controls$iterlim,
+                  max(controls$interruption_rate*controls$iterlim, 1))
   }
 
   ### perform local search
   for(b in 1:batches){
 
     out = trust::trust(objfun = f,
-                       parinit = par_init,
+                       parinit = parinit,
                        rinit = 1,
                        rmax = 10,
-                       iterlim = ceiling(iterlim/batches),
+                       iterlim = ceiling(controls$iterlim/batches),
                        minimize = minimize,
                        blather = FALSE)
 
     ### check if local search can be interrupted prematurely
     if(length(L) > 0)
-      if(interrupt(f = f, par_curr = out$argument, L = L, minimize = controls$minimize))
+      if(interruption(f = f, point = out$argument, L = L, minimize = minimize))
+        cat(" [interrupted]")
         return(list("success" = FALSE, "value" = NA, "argument" = NA))
 
-    par_init = out$argument
+    parinit = out$argument
   }
 
-  return(list("success" = out$converged, "value" = out$value, "argument" = out$argument))
+  return(list("success" = out$converged, "value" = out$value,
+              "argument" = out$argument))
 }

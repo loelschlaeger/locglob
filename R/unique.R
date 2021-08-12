@@ -12,9 +12,8 @@
 #' @param argument
 #' The argument of a candidate optimum.
 #' @return
-#' \code{L}
-#' @example
-#' unique(L = list(list(value = 1, argument = c(0,0))), argument = c(0,0))
+#' A boolean. If \code{TRUE}, \code{argument} is not contained in \code{L}.
+#' If \code{FALSE}, \code{argument} is already contained in \code{L}.
 
 unique = function(L, argument){
   for(i in seq_len(length(L)))

@@ -5,16 +5,13 @@
 #' @references
 #' Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"
 #' <https://doi.org/10.1287/ijoc.1090.0343>
-#' @param f
-#' A function that computes value, gradient, and Hessian of the function to be
-#' optimized and returns them as a named list with elements \code{value},
-#' \code{gradient}, and \code{hessian}.
-#' @param npar
-#' The number of parameters of \code{f}.
+#' @inheritParams check_f
 #' @param minimize
 #' A boolean, determining whether \code{f} should be minimized
 #' \code{minimize = TRUE} (the default) or maximized \code{minimize = FALSE}.
 #' @inheritParams check_controls
+#' @param quite
+#' Set `quite = TRUE` to suppress progress printing.
 #' @return
 #' A list of two list,
 #' \itemize{
@@ -95,16 +92,21 @@
 #' search(f = rosenbrock, npar = 2, minimize = TRUE, controls = controls)
 #' @export
 
-search = function(f, npar, minimize = TRUE, controls = NULL) {
+search = function(f, npar, minimize = TRUE, controls = NULL, quiet = FALSE) {
 
-  ### check input
-  if(!is.function(f))
-    stop("'f' must be a function.")
+  ### check inputs
   if(!(is.numeric(npar) && npar>0 && npar%%1==0))
     stop("'npar' must be a positive number.")
   if(!is.logical(minimize))
     stop("'minimize' must be a boolean.")
-  controls = check_controls(controls)
+  if(!is.logical(quite))
+    stop("'quite' must be a boolean.")
+  if(quite){
+    sink(tempfile())
+    on.exit(sink())
+  }
+  controls = check_controls(controls = controls)
+  check_f(f = f, npar = npar, controls = controls)
 
   ### initialization of variable neighborhood search
   cat("Initialize VNTRS.")
@@ -116,41 +118,52 @@ search = function(f, npar, minimize = TRUE, controls = NULL) {
   ### iterative variable neighborhood search
   cat("Start VNTRS.")
   k = 1
-  while(k <= controls$n){
+  while(k <= controls$neighborhoods){
 
     ### select neighbors
     cat(paste0("* Select neighborhood ",k,".\n"))
-    z = select_neighbors(f = f, x = x_best, neighborhood_size = 1.5^(k-1),
+    z = select_neighbors(f = f, x = x_best, neighborhood_expansion = 1.5^(k-1),
                          controls = controls)
 
     ### perform local search around neighbors
-    local_searches = list()
     for(j in 1:length(z)){
-      local_searches[[j]] = local(f = f,
-                                  par_init = z[[j]],
-                                  iterlim = controls$iterlim,
-                                  interrupt_rate = controls$interrupt_rate,
-                                  minimize = controls$minimize,
-                                  L = L)
 
-      ### save local optimum (if one has been found)
-      if(local_searches[[j]]$success) L = c(L,list(local_searches[[j]]))
+      ### perform local search
+      cat("** Neighbor",j)
+      start = Sys.time()
+      local_search = local(f = f,
+                           parinit = z[[j]],
+                           minimize = minimize,
+                           controls = controls,
+                           L = L)
+      end = Sys.time()
 
+      ### save local optimum (if unique one has been found)
+      cat(paste0(" [",sprintf("%.0f",difftime(end,start,unit="secs")),"s]"))
+      if(local_search$success){
+        cat(" [success]")
+        if(unique(L = L, argument = local_search$argument)){
+          cat(" [unique]")
+          L = c(L,list(local_search))
+        }
+      }
+      cat("\n")
     }
 
-    if(controls$minimize){
-      x_best_new = L[[which.min(unlist(lapply(L,function(x) x$value)))]]$argument
+    ### if identified better optimum, reset neighborhoods
+    f_best = do.call(what = ifelse(minimize,min,max),
+                     args = list(unlist(lapply(L,function(x) x$value))))
+    if((minimize && f_best < f(x_best)$value) ||
+       (!minimize && f_best > f(x_best)$value)){
+      cat("* Reset neighborhood, because better optima found.\n")
+      k = 1
     } else {
-      x_best_new = L[[which.max(unlist(lapply(L,function(x) x$value)))]]$argument
+      k = k + 1
     }
-
-    ### check if better local optimum found
-    k = ifelse(any(x_best != x_best_new), 1, k+1)
-    x_best = x_best_new
-
   }
 
-  ### prepare output
-  out = evaluate(L,controls)
-  return(invisible(out))
+  ### prepare and return output
+  out = prepare_output(L = L, minimize = minimize)
+  class(out) = "locglob"
+  return(out)
 }

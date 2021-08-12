@@ -20,6 +20,8 @@
   
 Optionally, you can tune the algorithm by specifying the named list `controls` and passing it to `search`, see the help file of `search` for details.
 
+There is one important element in `controls`, called `only_global`: Set `only_global = TRUE` if you are only interested in the global optimum of `f`. In this case, the algorithm will interrupt any local search prematurely that converges to a local optimum. This saves computation time. If `only_global = FALSE` (the default), the algorithm also looks for local optima. 
+
 ## Example 1: The Shubert function
 
 ```r
