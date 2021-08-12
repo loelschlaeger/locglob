@@ -1,5 +1,5 @@
-Package: ao
-Title: Identify and visualize local and global optima
+Package: locglob
+Title: Identify local and global optima via a variable neighborhood trust region search
 Version: 0.0.0.9000
 Date: 2021-07-07
 Authors@R: 
@@ -8,11 +8,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "lennart.oelschlaeger@uni-bielefeld.de",
            comment = c(ORCID = "0000-0001-5421-9313"))
-Description: 
-Identification and visualization of local and global optima based on a variable 
-neighborhood trust region framework (Bierlaire et al. (2009) 
-"A Heuristic for Nonlinear Global Optimization" <doi:10.1287/ijoc.1090.0343>). 
+Description: Identification of local and global optima based on a variable neighborhood trust region framework (Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization" <doi:10.1287/ijoc.1090.0343>). 
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.1.1
