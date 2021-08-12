@@ -1,74 +1,81 @@
-#' Initialize variable neighborhood trust region search.
+#' Initialize VNTRS.
 #' @description
 #' Function that initializes the variable neighborhood trust region search.
-#' @param f
-#' A function that computes value, gradient, and Hessian of the function to be
-#' optimized and returns them as a list with components \code{value},
-#' \code{gradient}, and \code{hessian}.
-#' @param npar
-#' The number of parameters of \code{f}.
-#' @param controls
-#' A list of controls.
+#' @inheritParams search
 #' @return
-#' A list of the set of identified local optima \code{L} and best initial
-#' parameter values \code{x_best}.
+#' A list of
+#' \itemize{
+#'   \item the set of identified local optima \code{L} and
+#'   \item best initial point \code{x_best}.
+#' }
+#' @example
+#' f = function(x) list(value = -x^2 , gradient = -2*x, hessian = matrix(-2))
+#' controls = check_controls(controls)
+#' initialize(f = f, npar = 1, minimize = FALSE, controls = controls)
 
-initialize = function(f, npar, controls){
+initialize = function(f, npar, minimize, controls){
 
-  ### initialize list of identified local optima
+  ### initialize list of identified optima
   L = list()
 
   ### random starting points (row-wise)
   y = runif(controls$init_runs*npar, controls$init_min, controls$init_max)
   y = matrix(y, nrow = controls$init_runs, ncol = npar)
 
-  ### search locally (for a small number of iterations) at random starting points
+  ### search locally (for a small number of iterations) starting from 'y'
   local_searches = list()
-  cat("* initialize\n")
-  for(n in 1:controls$init_runs){
+  cat("* Apply local search at",controls$init_runs,"random starting points.\n")
+  for(n in seq_len(controls$init_runs)){
 
     ### perform local search
-    cat(sprintf("* %.0f%% \r",(n-1)/controls$init_runs*100))
-    local_search_short = trust::trust(objfun = f,
-                                      parinit = y[n,],
-                                      rinit = 1,
-                                      rmax = 10,
-                                      iterlim = controls$init_iterlim_short,
-                                      minimize = controls$minimize)
+    local_search = trust::trust(objfun = f,
+                                parinit = y[n,],
+                                rinit = 1,
+                                rmax = 10,
+                                iterlim = controls$init_iterlim_short,
+                                minimize = minimize)
 
     ### save local search
-    local_searches[[n]] = list("success" = local_search_short$converged,
-                               "value" = local_search_short$value,
-                               "argument" = local_search_short$argument)
+    local_searches[[n]] = list("success" = local_search$converged,
+                               "value" = local_search$value,
+                               "argument" = local_search$argument)
 
-    ### save local optimum (if one has been found)
-    if(local_searches[[n]]$success) L = collect(L,local_searches[[n]])
+    ### save local optimum (if unique one has been found)
+    cat("** Run",n)
+    if(local_searches[[n]]$success)
+      cat(" [success]")
+      if(unique(L = L, argument = local_searches[[n]]$argument)){
+        cat(" [unique]")
+        L = c(L,list(local_searches[[n]]))
+      }
+    cat("\n")
   }
 
   ### select best candidate
   candidates = unlist(lapply(local_searches,function(x) x$value))
-  if(controls$minimize){
-    j_hat = which.min(candidates)
-  } else {
-    j_hat = which.max(candidates)
-  }
+  j_hat = do.call(what = ifelse(minimize,which.min,which.max),
+                  args = list("x" = candidates))
 
   ### check if best candidate is local optimum
   if(local_searches[[j_hat]]$success){
-    ### save best candidate
+    ### save initial point
     x_best = local_searches[[j_hat]]$argument
 
   } else {
-    ### search locally again longer if no local optimum has been found yet
+    ### search locally again longer if noa local optimum has been found yet
+    cat(paste0("* Continue the best run ",j_hat,"."))
     local_search_long = trust::trust(objfun = f,
                                      parinit = local_searches[[j_hat]]$argument,
                                      rinit = 1,
                                      rmax = 10,
                                      iterlim = controls$init_iterlim_long,
-                                     minimize = controls$minimize)
+                                     minimize = minimize)
+    if(!local_search_long$converged)
+      stop("Initialization failed. Consider increasing 'controls$init_runs',
+           'controls$init_iterlim_short' and 'controls$init_iterlim_long'.")
     x_best = local_search_long$argument
   }
 
-  ### return set of identified local optima and initially best parameter value vector
+  ### return set of identified local optima and initially best parameter value
   return(list("L" = L, "x_best" = x_best))
 }
