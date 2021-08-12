@@ -1,4 +1,4 @@
-# README of the R package **locglob**
+# locglob
 
 👉 The purpose of this R package is to find local and global optima of some numerical function via a variable neighborhood trust region search (VNTRS), which makes the optimization fast and efficient. For a reference, see Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization" <https://doi.org/10.1287/ijoc.1090.0343>.
 
