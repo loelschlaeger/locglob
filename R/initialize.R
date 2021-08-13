@@ -1,7 +1,7 @@
 #' Initialize VNTRS.
 #' @description
 #' Function that initializes the variable neighborhood trust region search.
-#' @inheritParams search
+#' @inheritParams explore
 #' @return
 #' A list of
 #' \itemize{
@@ -13,10 +13,6 @@
 #'     of each identified optimum.
 #'   \item best initial point \code{x_best}.
 #' }
-#' @example
-#' f = function(x) list(value = -x^2 , gradient = -2*x, hessian = matrix(-2))
-#' controls = check_controls(controls)
-#' initialize(f = f, npar = 1, minimize = FALSE, controls = controls)
 
 initialize = function(f, npar, minimize, controls){
 

@@ -39,7 +39,7 @@
 #'  h = eval(h)
 #'  list(value = f, gradient = g, hessian = as.matrix(h))
 #' }
-#' search(f = gramacy_lee, npar = 1, seed = 1)
+#' explore(f = gramacy_lee, npar = 1, seed = 1)
 #'
 #' ### Shubert function
 #' shubert = function(x) {
@@ -63,7 +63,7 @@
 #'  h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
 #'  list(value = f, gradient = g, hessian = h)
 #' }
-#' search(f = shubert, npar = 2, seed = 1)
+#' explore(f = shubert, npar = 2, seed = 1)
 #'
 #' ### Rosenbrock function
 #' rosenbrock = function(x) {
@@ -82,10 +82,10 @@
 #'   h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
 #'   list(value = f, gradient = g, hessian = h)
 #' }
-#' search(f = rosenbrock, npar = 2, seed = 1)
+#' explore(f = rosenbrock, npar = 2, seed = 1)
 #' @export
 
-search = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
+explore = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
                   seed = NULL) {
 
   ### check inputs

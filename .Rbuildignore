@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 LICENSE
 sticker
+load_locglob.R

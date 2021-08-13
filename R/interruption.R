@@ -1,7 +1,7 @@
 #' Interrupt local search.
 #' @description
 #' Function that checks if the local search can be interrupted.
-#' @inheritParams search
+#' @inheritParams explore
 #' @param point
 #' The current location of the local search.
 #' @inheritParams unique

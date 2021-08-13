@@ -9,6 +9,7 @@ Authors@R:
            email = "lennart.oelschlaeger@uni-bielefeld.de",
            comment = c(ORCID = "0000-0001-5421-9313"))
 Description: Identification of local and global optima based on a variable neighborhood trust region framework (Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization" <doi:10.1287/ijoc.1090.0343>). 
+Imports: trust
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

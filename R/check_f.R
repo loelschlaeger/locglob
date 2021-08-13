@@ -8,6 +8,7 @@
 #' of class \code{matrix}.
 #' @param npar
 #' The number of parameters of \code{f}.
+#' @inheritParams check_controls
 #' @return
 #' Invisibly a boolean, if \code{TRUE} than \code{f} is proper, \code{FALSE}
 #' otherwise.
