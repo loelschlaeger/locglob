@@ -4,3 +4,6 @@ LICENSE
 sticker
 load_locglob.R
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
