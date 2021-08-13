@@ -22,20 +22,18 @@
 #'   selection of the neighbors. If \code{beta = 0}, the curvature is ignored.
 #'   The higher the value, the higher probability of selecting a neighbor in the
 #'   direction of the highest function curvature.
-#'   \item \code{iterlim} \code{(200)}:
+#'   \item \code{iterlim} \code{(1000)}:
 #'   The maximum number of iterations to be performed before the local search is
 #'   terminated.
-#'   \item \code{interruption_rate} \code{(0.1)}:
-#'   A numeric between 0 and 1, determining the rate to check if the local
-#'   search converges to an already identified optimum and hence can be
-#'   interrupted. The higher the value, the more often the algorithm checks
-#'   for premature interruption. This in turn increases computation time.
 #'   \item \code{only_global} \code{(FALSE)}:
 #'   A boolean. Set \code{only_global = TRUE} if you are only interested in the
 #'   global optimum. In this case, the algorithm will interrupt any local search
 #'   prematurely that converges to a local optimum. This saves computation time.
 #'   If `only_global = FALSE` (the default), the algorithm also looks for local
 #'   optima.
+#'   \item \code{tolerance} \code{(1e-5)}:
+#'   Passed on to \code{\link{all.equal}}, which is used to check if two optima
+#'   are equal.
 #' }
 #' @return
 #' The checked and filled list \code{controls}.
@@ -65,11 +63,6 @@ check_controls = function(controls){
     controls[["init_iterlim"]] = 20
   if(!is.numeric(controls[["init_iterlim"]]))
     stop("'controls$init_iterlim' must be a numeric.")
-  if(is.null(controls[["n"]]))
-    controls[["n"]] = 5
-  if(!(is.numeric(controls[["n"]]) && controls[["n"]]>0 &&
-       controls[["n"]]%%1==0))
-    stop("'controls$n' must be a positive number.")
   if(is.null(controls[["neighborhoods"]]))
     controls[["neighborhoods"]] = 5
   if(!(is.numeric(controls[["neighborhoods"]]) &&
@@ -85,19 +78,17 @@ check_controls = function(controls){
   if(!(is.numeric(controls[["beta"]]) && controls[["beta"]] >= 0))
     stop("'controls$beta' must be greater zero.")
   if(is.null(controls[["iterlim"]]))
-    controls[["iterlim"]] = 200
+    controls[["iterlim"]] = 1000
   if(!is.numeric(controls[["iterlim"]]))
     stop("'controls$iterlim' must be a numeric.")
-  if(is.null(controls[["interruption_rate"]]))
-    controls[["interruption_rate"]] = 0.1
-  if(!(is.numeric(controls[["interruption_rate"]]) &&
-       controls[["interruption_rate"]] >= 0 &&
-       1 >= controls[["interruption_rate"]]))
-    stop("'controls$interruption_rate' must be a number between 0 and 1.")
   if(is.null(controls[["only_global"]]))
     controls[["only_global"]] = FALSE
   if(!is.logical(controls[["only_global"]]))
-    stop("'controls$only_global' has to be a boolean.")
+    stop("'controls$only_global' must be a boolean.")
+  if(is.null(controls[["tolerance"]]))
+    controls[["tolerance"]] = 1e-5
+  if(!(is.numeric(controls[["tolerance"]]) && controls[["tolerance"]] >= 0))
+    stop("'controls$tolerance' must be non-negative.")
 
   return(controls)
 }

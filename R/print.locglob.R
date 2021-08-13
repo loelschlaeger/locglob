@@ -9,6 +9,7 @@
 print.locglob = function(x,...) {
   if(!inherits(x,"locglob"))
     stop("'x' is not of class 'locglob'.")
+  cat("Optimal function value:",x$global[[1]]$value,"\n")
   cat("Number of global optima:",length(x$global),"\n")
   cat("Number of local optima:",length(x$local),"\n")
   return(invisible(NULL))

@@ -17,32 +17,33 @@
 
 local = function(f, parinit, minimize, controls, L) {
 
-  ### determine number of batches based on 'controls$interruption_rate'
-  if(length(L)==0 || controls$interruption_rate == 0){
+  ### do not check premature interruption if 'L' is empty or
+  ### 'controls$only_global' = FALSE
+  if(length(L)==0 || !controls$only_global) {
     batches = 1
-  } else if(controls$interruption_rate == 1){
-    batches = controls$iterlim
   } else {
-    batches = min(controls$iterlim,
-                  max(controls$interruption_rate*controls$iterlim, 1))
+    batches = controls$iterlim
   }
 
   ### perform local search
-  for(b in 1:batches){
+  for(b in seq_len(batches)){
 
     out = trust::trust(objfun = f,
                        parinit = parinit,
                        rinit = 1,
                        rmax = 10,
-                       iterlim = ceiling(controls$iterlim/batches),
+                       iterlim = controls$iterlim/batches,
                        minimize = minimize,
                        blather = FALSE)
 
-    ### check if local search can be interrupted prematurely
-    if(length(L) > 0)
+    if(b < batches){
+      ### check if already converged
+      if(out$converged) break
+
+      ### check if local search can be interrupted prematurely
       if(interruption(f = f, point = out$argument, L = L, minimize = minimize))
-        cat(" [interrupted]")
-        return(list("success" = FALSE, "value" = NA, "argument" = NA))
+          return(list("success" = FALSE, "value" = NA, "argument" = NA))
+    }
 
     parinit = out$argument
   }

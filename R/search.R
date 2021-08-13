@@ -10,8 +10,10 @@
 #' A boolean, determining whether \code{f} should be minimized
 #' \code{minimize = TRUE} (the default) or maximized \code{minimize = FALSE}.
 #' @inheritParams check_controls
-#' @param quite
-#' Set `quite = TRUE` to suppress progress printing.
+#' @param quiet
+#' Set `quiet = FALSE` to print progress.
+#' @param seed
+#' Set a seed for the sampling of the random starting points.
 #' @return
 #' A list of two list,
 #' \itemize{
@@ -25,9 +27,21 @@
 #' }
 #' of each identified optimum.
 #' @examples
+#' ### Gramacy & Lee function
+#' gramacy_lee = function(x) {
+#'  stopifnot(is.numeric(x))
+#'  stopifnot(length(x) == 1)
+#'  f = expression(sin(10*pi*x) / (2*x) + (x-1)^4)
+#'  g = D(f, "x")
+#'  h = D(g, "x")
+#'  f = eval(f)
+#'  g = eval(g)
+#'  h = eval(h)
+#'  list(value = f, gradient = g, hessian = as.matrix(h))
+#' }
+#' search(f = gramacy_lee, npar = 1, seed = 1)
+#'
 #' ### Shubert function
-#' ### 18 global minima, 742 local minima
-#' ### minimal function value: -186.7309
 #' shubert = function(x) {
 #'  stopifnot(is.numeric(x))
 #'  stopifnot(length(x) == 2)
@@ -49,29 +63,9 @@
 #'  h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
 #'  list(value = f, gradient = g, hessian = h)
 #' }
-#' controls = list()
-#' search(f = shubert, npar = 2, minimize = TRUE, controls = controls)
-#'
-#' ### Gramacy & Lee function
-#' ### 1 global minimum
-#' ### minimal function value: -2.873899
-#' gramacy_lee = function(x) {
-#'  stopifnot(is.numeric(x))
-#'  stopifnot(length(x) == 1)
-#'  f = expression(sin(10*pi*x) / (2*x) + (x-1)^4)
-#'  g = D(f, "x")
-#'  h = D(g, "x")
-#'  f = eval(f)
-#'  g = eval(g)
-#'  h = eval(h)
-#'  list(value = f, gradient = g, hessian = as.matrix(h))
-#' }
-#' controls = list()
-#' search(f = gramacy_lee, npar = 1, minimize = TRUE, controls = controls)
+#' search(f = shubert, npar = 2, seed = 1)
 #'
 #' ### Rosenbrock function
-#' ### 1 global minimum
-#' ### minimal function value: 0
 #' rosenbrock = function(x) {
 #'   stopifnot(is.numeric(x))
 #'   stopifnot(length(x) == 2)
@@ -88,35 +82,37 @@
 #'   h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
 #'   list(value = f, gradient = g, hessian = h)
 #' }
-#' controls = list()
-#' search(f = rosenbrock, npar = 2, minimize = TRUE, controls = controls)
+#' search(f = rosenbrock, npar = 2, seed = 1)
 #' @export
 
-search = function(f, npar, minimize = TRUE, controls = NULL, quiet = FALSE) {
+search = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
+                  seed = NULL) {
 
   ### check inputs
   if(!(is.numeric(npar) && npar>0 && npar%%1==0))
     stop("'npar' must be a positive number.")
   if(!is.logical(minimize))
     stop("'minimize' must be a boolean.")
-  if(!is.logical(quite))
-    stop("'quite' must be a boolean.")
-  if(quite){
+  if(!is.logical(quiet))
+    stop("'quiet' must be a boolean.")
+  if(quiet){
     sink(tempfile())
     on.exit(sink())
   }
+  if(!is.null(seed))
+    set.seed(seed)
   controls = check_controls(controls = controls)
   check_f(f = f, npar = npar, controls = controls)
 
   ### initialization of variable neighborhood search
-  cat("Initialize VNTRS.")
+  cat("Initialize VNTRS.\n")
   initialization = initialize(f = f, npar = npar, minimize = minimize,
                               controls = controls)
   L = initialization$L
   x_best = initialization$x_best
 
   ### iterative variable neighborhood search
-  cat("Start VNTRS.")
+  cat("Start VNTRS.\n")
   k = 1
   while(k <= controls$neighborhoods){
 
@@ -126,7 +122,7 @@ search = function(f, npar, minimize = TRUE, controls = NULL, quiet = FALSE) {
                          controls = controls)
 
     ### perform local search around neighbors
-    for(j in 1:length(z)){
+    for(j in seq_len(length(z))){
 
       ### perform local search
       cat("** Neighbor",j)
@@ -139,11 +135,12 @@ search = function(f, npar, minimize = TRUE, controls = NULL, quiet = FALSE) {
       end = Sys.time()
 
       ### save local optimum (if unique one has been found)
-      cat(paste0(" [",sprintf("%.0f",difftime(end,start,unit="secs")),"s]"))
+      cat(paste0(" [",sprintf("%.0f",difftime(end,start,units = "auto")),"s]"))
       if(local_search$success){
-        cat(" [success]")
-        if(unique(L = L, argument = local_search$argument)){
-          cat(" [unique]")
+        cat(" [found optimum]")
+        if(unique(L = L, argument = local_search$argument,
+                  tolerance = controls$tolerance)){
+          cat(" [optimum is unknown]")
           L = c(L,list(local_search))
         }
       }
@@ -151,19 +148,25 @@ search = function(f, npar, minimize = TRUE, controls = NULL, quiet = FALSE) {
     }
 
     ### if identified better optimum, reset neighborhoods
-    f_best = do.call(what = ifelse(minimize,min,max),
-                     args = list(unlist(lapply(L,function(x) x$value))))
-    if((minimize && f_best < f(x_best)$value) ||
-       (!minimize && f_best > f(x_best)$value)){
-      cat("* Reset neighborhood, because better optima found.\n")
+    pos_x_best_new = do.call(what = ifelse(minimize,which.min,which.max),
+                             args = list(unlist(lapply(L,function(x) x$value))))
+    x_best_new = L[[pos_x_best_new]]$argument
+    if(!isTRUE(all.equal(target = x_best_new,
+                         current = x_best,
+                         tolerance = controls$tolerance))){
+      cat("* Reset neighborhood, because better optimum found.\n")
+      x_best = x_best_new
       k = 1
     } else {
       k = k + 1
     }
   }
 
-  ### prepare and return output
+  ### prepare output
   out = prepare_output(L = L, minimize = minimize)
   class(out) = "locglob"
+
+  ### return output
+  cat("Done.\n")
   return(out)
 }

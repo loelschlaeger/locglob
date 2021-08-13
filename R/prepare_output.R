@@ -4,6 +4,18 @@
 #' between local and global optima in `L`.
 #' @inheritParams unique
 #' @inheritParams search
+#' @return
+#' A list of two list,
+#' \itemize{
+#'   \item \code{global} optima and
+#'   \item \code{local} optima,
+#' }
+#' each of which contains lists with
+#' \itemize{
+#'   \item \code{value} and
+#'   \item \code{argument}
+#' }
+#' of each identified optimum.
 
 prepare_output = function(L, minimize) {
 
@@ -21,16 +33,14 @@ prepare_output = function(L, minimize) {
     L[[i]]$success = NULL
 
   ### classify local and global optima
+  values = unlist(lapply(L,function(x)x$value))
   if(minimize){
-    ind_gl = which(unlist(lapply(local,function(x)x$value)) == min(unlist(lapply(local,function(x)x$value))))
+    ind_gl = which(values == min(values))
   } else {
-    ind_gl = which(unlist(lapply(local,function(x)x$value)) == max(unlist(lapply(local,function(x)x$value))))
+    ind_gl = which(values == max(values))
   }
-  global = local[ind_gl]
-  local[ind_gl] = NULL
-  out = list(global, local)
-  names(out) = paste(c("global","local"),ifelse(minimize,"min","max"),sep="_")
-
+  out[["global"]] = L[ind_gl]
+  L[ind_gl] = NULL
+  out[["local"]] = L
   return(out)
-
 }

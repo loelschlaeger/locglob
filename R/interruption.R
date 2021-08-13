@@ -5,16 +5,13 @@
 #' @param point
 #' The current location of the local search.
 #' @inheritParams unique
-#' @param only_global
-#' A boolean. Set \code{only_global = TRUE} if you are only interested in the
-#' global optimum. In this case, the algorithm will interrupt any local search
-#' prematurely that converges to a local optimum. This saves computation time.
-#' If `only_global = FALSE` (the default), the algorithm also looks for local
-#' optima.
 #' @return
-#' A boolean, whether to interrupt or not.
+#' Invisibly boolean, whether to interrupt or not.
 
-interruption = function(f, point, L, minimize, only_global) {
+interruption = function(f, point, L, minimize) {
+
+  ### no interruption if 'L' is empty
+  if(length(L)==0) return(FALSE)
 
   ### the value at the best iterate in L
   f_best = do.call(what = ifelse(minimize,min,max),
@@ -25,11 +22,18 @@ interruption = function(f, point, L, minimize, only_global) {
     dist = norm(matrix(point - L[[i]]$argument),"F")
 
     ### check if distance is below 1
-    if(dist <= 1) return(TRUE)
-
+    if(dist <= 1){
+      cat(" [optimum already visted]")
+      return(TRUE)
+    }
   }
 
-  ### TODO: add tests
+  ### check for convergence to a local optimum
+  if(1e-3 >= norm(matrix(f(point)$gradient),"F") &&
+     3 >= f(point)$value - f_best) {
+    cat(" [optimum seems local]")
+    return(TRUE)
+  }
 
   ### otherwise do not interrupt
   return(FALSE)

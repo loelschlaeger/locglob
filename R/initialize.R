@@ -49,11 +49,12 @@ initialize = function(f, npar, minimize, controls){
                                "argument" = local_search$argument)
 
     ### save local optimum (if unique one has been found)
-    cat(paste0(" [",sprintf("%.0f",difftime(end,start,unit="secs")),"s]"))
+    cat(paste0(" [",sprintf("%.0f",difftime(end,start,units = "auto")),"s]"))
     if(local_searches[[n]]$success){
-      cat(" [success]")
-      if(unique(L = L, argument = local_searches[[n]]$argument)){
-        cat(" [unique]")
+      cat(" [found optimum]")
+      if(unique(L = L, argument = local_searches[[n]]$argument,
+                tolerance = controls$tolerance)){
+        cat(" [optimum is unknown]")
         L = c(L,list(local_searches[[n]]))
       }
     }
@@ -71,7 +72,7 @@ initialize = function(f, npar, minimize, controls){
     x_best = local_searches[[j_hat]]$argument
 
   } else {
-    ### search locally again longer if noa local optimum has been found yet
+    ### search locally again longer if no local optimum has been found yet
     cat(paste0("* Continue the best run ",j_hat,"."))
     local_search_long = trust::trust(objfun = f,
                                      parinit = local_searches[[j_hat]]$argument,
