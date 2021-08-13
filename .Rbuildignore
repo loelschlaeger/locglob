@@ -3,3 +3,4 @@
 LICENSE
 sticker
 load_locglob.R
+^\.github$

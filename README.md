@@ -1,5 +1,11 @@
 # locglob
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/loelschlaeger/locglob/workflows/R-CMD-check/badge.svg)](https://github.com/loelschlaeger/locglob/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version-last-release/locglob)](https://www.r-pkg.org/badges/version-last-release/locglob)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/locglob)](https://cranlogs.r-pkg.org/badges/grand-total/locglob)
+<!-- badges: end -->
+
 👉 The purpose of this R package is to find local and global optima of some numerical function via a variable neighborhood trust region search (VNTRS), which makes the optimization fast and efficient. For a reference, see Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization" <https://doi.org/10.1287/ijoc.1090.0343>.
 
 💬 Do you found a bug or request a feature? Please [tell us](https://github.com/loelschlaeger/locglob/issues)!
