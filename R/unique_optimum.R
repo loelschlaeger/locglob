@@ -20,7 +20,7 @@
 #' A boolean. If \code{TRUE}, \code{argument} is not contained in \code{L}.
 #' If \code{FALSE}, \code{argument} is already contained in \code{L}.
 
-unique = function(L, argument, tolerance){
+unique_optimum = function(L, argument, tolerance){
   for(i in seq_len(length(L)))
     if(isTRUE(all.equal(target = L[[i]]$argument,
                         current = argument,

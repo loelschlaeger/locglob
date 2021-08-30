@@ -4,7 +4,7 @@
 #' @inheritParams explore
 #' @param parinit
 #' Passed on to \code{\link[trust]{trust}}.
-#' @inheritParams unique
+#' @inheritParams unique_optimum
 #' @return
 #' A list of
 #' \itemize{

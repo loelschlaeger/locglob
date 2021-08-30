@@ -48,8 +48,8 @@ initialize = function(f, npar, minimize, controls){
     cat(paste0(" [",sprintf("%.0f",difftime(end,start,units = "auto")),"s]"))
     if(local_searches[[n]]$success){
       cat(" [found optimum]")
-      if(unique(L = L, argument = local_searches[[n]]$argument,
-                tolerance = controls$tolerance)){
+      if(unique_optimum(L = L, argument = local_searches[[n]]$argument,
+                        tolerance = controls$tolerance)){
         cat(" [optimum is unknown]")
         L = c(L,list(local_searches[[n]]))
       }

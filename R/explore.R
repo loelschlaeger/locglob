@@ -138,8 +138,8 @@ explore = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
       cat(paste0(" [",sprintf("%.0f",difftime(end,start,units = "auto")),"s]"))
       if(local_search$success){
         cat(" [found optimum]")
-        if(unique(L = L, argument = local_search$argument,
-                  tolerance = controls$tolerance)){
+        if(unique_optimum(L = L, argument = local_search$argument,
+                          tolerance = controls$tolerance)){
           cat(" [optimum is unknown]")
           L = c(L,list(local_search))
         }

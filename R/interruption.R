@@ -4,7 +4,7 @@
 #' @inheritParams explore
 #' @param point
 #' The current location of the local search.
-#' @inheritParams unique
+#' @inheritParams unique_optimum
 #' @return
 #' Invisibly boolean, whether to interrupt or not.
 
