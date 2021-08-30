@@ -135,7 +135,8 @@ explore = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
       end = Sys.time()
 
       ### save local optimum (if unique one has been found)
-      cat(paste0(" [",sprintf("%.0f",difftime(end,start,units = "auto")),"s]"))
+      t = difftime(end,start,units = "auto")
+      cat(paste0(" [",sprintf("%.0f",t),units(t)," ]"))
       if(local_search$success){
         cat(" [found optimum]")
         if(unique_optimum(L = L, argument = local_search$argument,

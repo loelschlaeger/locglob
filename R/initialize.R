@@ -45,7 +45,8 @@ initialize = function(f, npar, minimize, controls){
                                "argument" = local_search$argument)
 
     ### save local optimum (if unique one has been found)
-    cat(paste0(" [",sprintf("%.0f",difftime(end,start,units = "auto")),"s]"))
+    t = difftime(end,start,units = "auto")
+    cat(paste0(" [",sprintf("%.0f",t),units(t)," ]"))
     if(local_searches[[n]]$success){
       cat(" [found optimum]")
       if(unique_optimum(L = L, argument = local_searches[[n]]$argument,
@@ -80,6 +81,7 @@ initialize = function(f, npar, minimize, controls){
       stop("Initialization failed. Consider increasing 'controls$init_runs',
            'controls$init_iterlim' and 'controls$iterlim'.")
     x_best = local_search_long$argument
+    cat(" [found optimum]\n")
   }
 
   ### return set of identified local optima and initially best parameter value
