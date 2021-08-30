@@ -155,7 +155,7 @@ explore = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
     if(!isTRUE(all.equal(target = x_best_new,
                          current = x_best,
                          tolerance = controls$tolerance))){
-      cat("* Reset neighborhood, because better optimum found.\n")
+      cat("* Reset neighborhood, because better optimum was found.\n")
       x_best = x_best_new
       k = 1
     } else {
