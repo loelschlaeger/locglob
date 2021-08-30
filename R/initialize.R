@@ -46,7 +46,7 @@ initialize = function(f, npar, minimize, controls){
 
     ### save local optimum (if unique one has been found)
     t = difftime(end,start,units = "auto")
-    cat(paste0(" [",sprintf("%.0f",t),units(t)," ]"))
+    cat(paste0(" [",sprintf("%.0f",t)," ",units(t),"]"))
     if(local_searches[[n]]$success){
       cat(" [found optimum]")
       if(unique_optimum(L = L, argument = local_searches[[n]]$argument,
