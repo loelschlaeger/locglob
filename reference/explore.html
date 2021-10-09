@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Identify local and global optima. — explore • locglob</title>
+<title>Identify local and global optima. — explore • vntrs</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,7 +49,7 @@
 <meta property="og:title" content="Identify local and global optima. — explore" />
 <meta property="og:description" content="Function that identifies local and global optima via variable neighborhood
 trust region search (VNTRS)." />
-<meta property="og:image" content="https://loelschlaeger.github.io/locglob/logo.png" />
+<meta property="og:image" content="https://loelschlaeger.github.io/vntrs/logo.png" />
 
 
 
@@ -80,8 +80,8 @@ trust region search (VNTRS)." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">locglob</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <a class="navbar-link" href="../index.html">vntrs</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -102,7 +102,7 @@ trust region search (VNTRS)." />
   </a>
 </li>
 <li>
-  <a href="https://github.com/loelschlaeger/locglob">
+  <a href="https://github.com/loelschlaeger/vntrs">
     <span class="fa fa-github fa-lg"></span>
      
     GitHub Repository
@@ -228,9 +228,7 @@ are equal.</p></li>
  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>f</span>, gradient <span class='op'>=</span> <span class='va'>g</span>, hessian <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='fu'>explore</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>gramacy_lee</span>, npar <span class='op'>=</span> <span class='fl'>1</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Optimal function value: -2.873899 
-#&gt; Number of global optima: 1 
-#&gt; Number of local optima: 12 </div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in explore(f = gramacy_lee, npar = 1, seed = 1): could not find function "explore"</span></div><div class='input'>
 <span class='co'>### Shubert function</span>
 <span class='va'>shubert</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
  <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
@@ -254,9 +252,7 @@ are equal.</p></li>
  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>f</span>, gradient <span class='op'>=</span> <span class='va'>g</span>, hessian <span class='op'>=</span> <span class='va'>h</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='fu'>explore</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>shubert</span>, npar <span class='op'>=</span> <span class='fl'>2</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Optimal function value: -186.7309 
-#&gt; Number of global optima: 1 
-#&gt; Number of local optima: 14 </div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in explore(f = shubert, npar = 2, seed = 1): could not find function "explore"</span></div><div class='input'>
 <span class='co'>### Rosenbrock function</span>
 <span class='va'>rosenbrock</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
@@ -275,9 +271,7 @@ are equal.</p></li>
   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>f</span>, gradient <span class='op'>=</span> <span class='va'>g</span>, hessian <span class='op'>=</span> <span class='va'>h</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='fu'>explore</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>rosenbrock</span>, npar <span class='op'>=</span> <span class='fl'>2</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Optimal function value: 2.114623e-15 
-#&gt; Number of global optima: 1 
-#&gt; Number of local optima: 0 </div></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in explore(f = rosenbrock, npar = 2, seed = 1): could not find function "explore"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
