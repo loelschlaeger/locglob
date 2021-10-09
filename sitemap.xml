@@ -10,9 +10,6 @@
     <loc>https://loelschlaeger.github.io/vntrs//reference/check_f.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/explore.html</loc>
-  </url>
-  <url>
     <loc>https://loelschlaeger.github.io/vntrs//reference/initialize.html</loc>
   </url>
   <url>
@@ -25,12 +22,15 @@
     <loc>https://loelschlaeger.github.io/vntrs//reference/prepare_output.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/print.locglob.html</loc>
+    <loc>https://loelschlaeger.github.io/vntrs//reference/print.vntrs.html</loc>
   </url>
   <url>
     <loc>https://loelschlaeger.github.io/vntrs//reference/select_neighbors.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/unique.html</loc>
+    <loc>https://loelschlaeger.github.io/vntrs//reference/unique_optimum.html</loc>
+  </url>
+  <url>
+    <loc>https://loelschlaeger.github.io/vntrs//reference/vntrs.html</loc>
   </url>
 </urlset>
