@@ -1,7 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 LICENSE
-sticker
+make_sticker.R
 load_locglob.R
 ^\.github$
 ^_pkgdown\.yml$

@@ -1,10 +1,8 @@
 .onAttach = function(lib, pkg) {
   # startup message
-  msg = c(
-    paste0("Thanks for installing 'locglob' version ",
-           packageVersion("locglob"),"."),
-    "\nType 'citation(\"locglob\")' for citing the R package in publications.",
-    "\nHappy search!")
+  msg = paste0(
+    "Thanks for installing vntrs ", packageVersion("vntrs"), ", happy search!\n",
+    "Type 'citation(\"vntrs\")' for citing the package in publications.")
   packageStartupMessage(msg)
   invisible()
 }

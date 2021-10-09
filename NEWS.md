@@ -1,3 +1,3 @@
-## locglob 0.0.0.9000
+## vntrs 0.1.0
 
-Developing.
+Initial version.

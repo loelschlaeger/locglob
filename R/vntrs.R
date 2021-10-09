@@ -39,7 +39,7 @@
 #'  h = eval(h)
 #'  list(value = f, gradient = g, hessian = as.matrix(h))
 #' }
-#' explore(f = gramacy_lee, npar = 1, seed = 1)
+#' vntrs(f = gramacy_lee, npar = 1, seed = 1)
 #'
 #' ### Shubert function
 #' shubert = function(x) {
@@ -63,7 +63,7 @@
 #'  h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
 #'  list(value = f, gradient = g, hessian = h)
 #' }
-#' explore(f = shubert, npar = 2, seed = 1)
+#' vntrs(f = shubert, npar = 2, seed = 1)
 #'
 #' ### Rosenbrock function
 #' rosenbrock = function(x) {
@@ -82,11 +82,11 @@
 #'   h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
 #'   list(value = f, gradient = g, hessian = h)
 #' }
-#' explore(f = rosenbrock, npar = 2, seed = 1)
+#' vntrs(f = rosenbrock, npar = 2, seed = 1)
 #' @export
 
-explore = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
-                  seed = NULL) {
+vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
+                 seed = NULL) {
 
   ### check inputs
   if(!(is.numeric(npar) && npar>0 && npar%%1==0))
@@ -165,7 +165,7 @@ explore = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
 
   ### prepare output
   out = prepare_output(L = L, minimize = minimize)
-  class(out) = "locglob"
+  class(out) = "vntrs"
 
   ### return output
   cat("Done.\n")

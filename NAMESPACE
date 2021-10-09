@@ -1,5 +1,5 @@
-S3method(print,locglob)
-export(explore)
+S3method(print,vntrs)
+export(vntrs)
 
 importFrom("utils", "packageVersion")
 importFrom("stats", "runif")

@@ -1,26 +1,18 @@
-# locglob <img src="man/figures/logo.png" align="right" height=136 />
+# vntrs <img src="man/figures/logo.png" align="right" height=136 />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/loelschlaeger/locglob/workflows/R-CMD-check/badge.svg)](https://github.com/loelschlaeger/locglob/actions)
-[![CRAN status](https://www.r-pkg.org/badges/version-last-release/locglob)](https://www.r-pkg.org/badges/version-last-release/locglob)
-[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/locglob)](https://cranlogs.r-pkg.org/badges/grand-total/locglob)
+[![R-CMD-check](https://github.com/loelschlaeger/vntrs/workflows/R-CMD-check/badge.svg)](https://github.com/loelschlaeger/vntrs/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version-last-release/vntrs)](https://www.r-pkg.org/badges/version-last-release/vntrs)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/vntrs)](https://cranlogs.r-pkg.org/badges/grand-total/vntrs)
 <!-- badges: end -->
-
-👉 The purpose of this R package is to find local and global optima of some numerical function via a variable neighborhood trust region search, which makes the optimization fast and efficient. 
-
-📚 For a reference, see Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization" <https://doi.org/10.1287/ijoc.1090.0343>.
-
-💬 Do you found a bug or request a feature? Please [tell us](https://github.com/loelschlaeger/locglob/issues)!
-
-📝 In R, type `citation("locglob")` for citing this package in publications.
 
 ## How to get started?
 
-1. Install the latest version of **locglob** via running `install.packages("locglob")` in your R console.
+1. Install the latest version of **vntrs** via running `install.packages("vntrs")` in your R console.
 
 2. Specify an R function `f` that computes value, gradient, and Hessian of the function to be optimized and returns them as a named list with elements `value`, `gradient`, and `hessian`.
 
-3. Call `locglob::search(f = f, npar = npar, minimize = minimize)`, where
+3. Call `vntrs::search(f = f, npar = npar, minimize = minimize)`, where
 
   - `npar` is the number of parameters of `f` and
   
