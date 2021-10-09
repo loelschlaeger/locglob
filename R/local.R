@@ -1,7 +1,7 @@
 #' Perform trust region local search.
 #' @description
 #' Function that links to \code{\link[trust]{trust}}.
-#' @inheritParams explore
+#' @inheritParams vntrs
 #' @param parinit
 #' Passed on to \code{\link[trust]{trust}}.
 #' @inheritParams unique_optimum

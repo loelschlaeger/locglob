@@ -1,7 +1,7 @@
 #' Select neighbors.
 #' @description
 #' Function that selects neighbors around a given point \code{x}.
-#' @inheritParams explore
+#' @inheritParams vntrs
 #' @param x
 #' A point in the domain of \code{f}.
 #' @param neighborhood_expansion

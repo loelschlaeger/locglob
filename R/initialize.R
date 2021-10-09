@@ -1,7 +1,7 @@
 #' Initialize VNTRS.
 #' @description
 #' Function that initializes the variable neighborhood trust region search.
-#' @inheritParams explore
+#' @inheritParams vntrs
 #' @return
 #' A list of
 #' \itemize{

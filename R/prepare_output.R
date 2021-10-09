@@ -3,7 +3,7 @@
 #' A function that prepares the output of \code{\link{search}} by distinguishing
 #' between local and global optima in `L`.
 #' @inheritParams unique_optimum
-#' @inheritParams explore
+#' @inheritParams vntrs
 #' @return
 #' A list of two list,
 #' \itemize{
