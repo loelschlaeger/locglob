@@ -1,22 +1,23 @@
 #' Check \code{f}.
 #' @description
-#' Function that checks \code{f} for \code{\link{search}}.
+#' This function checks the input \code{f} for the vntrs package.
 #' @param f
 #' A function that computes value, gradient, and Hessian of the function to be
 #' optimized and returns them as a named list with elements \code{value},
-#' \code{gradient}, and \code{hessian}. It is required that \code{hessian} is
-#' of class \code{matrix}.
+#' \code{gradient}, and \code{hessian}.
 #' @param npar
 #' The number of parameters of \code{f}.
 #' @inheritParams check_controls
 #' @return
-#' Invisibly a boolean, if \code{TRUE} than \code{f} is proper, \code{FALSE}
-#' otherwise.
+#' No return value, called for side-effects.
 
 check_f = function(f, npar, controls) {
 
+  ### check inputs
   if(!is.function(f))
     stop("'f' must be a function.")
+  if(!(is.numeric(npar) && npar>0 && npar%%1==0))
+    stop("'npar' must be a positive number.")
 
   ### draw random test points
   test_runs = 10
@@ -50,6 +51,4 @@ check_f = function(f, npar, controls) {
       stop("The element 'hessian' in the output list of ",call,
            " is not a numeric matrix of dimension 'npar' x 'npar'.")
   }
-
-  return(invisible(TRUE))
 }

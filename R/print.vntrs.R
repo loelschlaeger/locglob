@@ -1,14 +1,13 @@
-#' Print method for \code{locglob}.
+#' Print method for an object of class \code{vntrs}.
 #' @param x
-#' The output of \code{\link{search}}, which is an object of class
-#' \code{locglob}.
+#' An object of class \code{vntrs}.
 #' @param ...
-#' ignored
+#' Ignored
 #' @export
 
 print.vntrs = function(x,...) {
-  cat("Optimal function value:",x$global[[1]]$value,"\n")
-  cat("Number of global optima:",length(x$global),"\n")
-  cat("Number of local optima:",length(x$local),"\n")
+  cat("Optimum:",x$global[[1]]$value,"\n")
+  cat("Global optima:",length(x$global),"\n")
+  cat("Local optima:",length(x$local),"\n")
   return(invisible(NULL))
 }

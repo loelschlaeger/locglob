@@ -1,31 +1,23 @@
-#' Identify local and global optima.
+#' Variable neighborhood trust region search.
 #' @description
-#' Function that identifies local and global optima via variable neighborhood
-#' trust region search (VNTRS).
+#' This function performs variable neighborhood trust region search.
 #' @references
 #' Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"
 #' <https://doi.org/10.1287/ijoc.1090.0343>
 #' @inheritParams check_f
 #' @param minimize
-#' A boolean, determining whether \code{f} should be minimized
-#' \code{minimize = TRUE} (the default) or maximized \code{minimize = FALSE}.
+#' If \code{TRUE}, \code{f} gets minimized. If \code{FALSE}, maximized.
 #' @inheritParams check_controls
 #' @param quiet
-#' Set `quiet = FALSE` to print progress.
+#' If \code{TRUE}, progress messages are suppressed.
 #' @param seed
 #' Set a seed for the sampling of the random starting points.
 #' @return
-#' A list of two list,
-#' \itemize{
-#'   \item \code{global} optima and
-#'   \item \code{local} optima,
-#' }
-#' each of which contains lists with
-#' \itemize{
-#'   \item \code{value} and
-#'   \item \code{argument}
-#' }
-#' of each identified optimum.
+#' A data frame. Each row contains information of an identified optimum. The
+#' first \code{npar} columns \code{"p1"},...,\code{"pn"} store the argument
+#' values, the next column \code{"value"} has the optimal function values and
+#' the last column \code{"global"} contains \code{TRUE} for global optima and
+#' \code{FALSE} for local optima.
 #' @examples
 #' ### missing
 #' @export
@@ -34,8 +26,6 @@ vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
                  seed = NULL) {
 
   ### check inputs
-  if(!(is.numeric(npar) && npar>0 && npar%%1==0))
-    stop("'npar' must be a positive number.")
   if(!is.logical(minimize))
     stop("'minimize' must be a boolean.")
   if(!is.logical(quiet))
