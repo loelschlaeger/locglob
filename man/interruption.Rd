@@ -9,8 +9,7 @@ interruption(f, point, L, minimize)
 \arguments{
 \item{f}{A function that computes value, gradient, and Hessian of the function to be
 optimized and returns them as a named list with elements \code{value},
-\code{gradient}, and \code{hessian}. It is required that \code{hessian} is
-of class \code{matrix}.}
+\code{gradient}, and \code{hessian}.}
 
 \item{point}{The current location of the local search.}
 
@@ -21,8 +20,7 @@ of class \code{matrix}.}
 }
 of each identified optimum.}
 
-\item{minimize}{A boolean, determining whether \code{f} should be minimized
-\code{minimize = TRUE} (the default) or maximized \code{minimize = FALSE}.}
+\item{minimize}{If \code{TRUE}, \code{f} gets minimized. If \code{FALSE}, maximized.}
 }
 \value{
 Invisibly boolean, whether to interrupt or not.

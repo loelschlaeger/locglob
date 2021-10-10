@@ -2,16 +2,18 @@
 % Please edit documentation in R/print.vntrs.R
 \name{print.vntrs}
 \alias{print.vntrs}
-\title{Print method for \code{locglob}.}
+\title{Print method for an object of class \code{vntrs}.}
 \usage{
 \method{print}{vntrs}(x, ...)
 }
 \arguments{
-\item{x}{The output of \code{\link{search}}, which is an object of class
-\code{locglob}.}
+\item{x}{An object of class \code{vntrs}.}
 
-\item{...}{ignored}
+\item{...}{Ignored.}
+}
+\value{
+Returns invisibly \code{x}.
 }
 \description{
-Print method for \code{locglob}.
+Print method for an object of class \code{vntrs}.
 }

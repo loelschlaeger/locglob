@@ -19,7 +19,7 @@ local = function(f, parinit, minimize, controls, L) {
 
   ### do not check premature interruption if 'L' is empty or
   ### 'controls$only_global' = FALSE
-  if(length(L)==0 || !controls$only_global) {
+  if(length(L)==0) {
     batches = 1
   } else {
     batches = controls$iterlim

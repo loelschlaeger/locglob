@@ -2,12 +2,14 @@
 #' @param x
 #' An object of class \code{vntrs}.
 #' @param ...
-#' Ignored
+#' Ignored.
+#' @return
+#' Returns invisibly \code{x}.
 #' @export
 
 print.vntrs = function(x,...) {
-  cat("Optimum:",x$global[[1]]$value,"\n")
-  cat("Global optima:",length(x$global),"\n")
-  cat("Local optima:",length(x$local),"\n")
-  return(invisible(NULL))
+  cat("Optimum:",x$value[x$global][1],"\n")
+  cat("Global optima:",sum(x$global),"\n")
+  cat("Local optima:",sum(!x$global),"\n")
+  return(invisible(x))
 }

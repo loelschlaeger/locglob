@@ -9,22 +9,21 @@ check_f(f, npar, controls)
 \arguments{
 \item{f}{A function that computes value, gradient, and Hessian of the function to be
 optimized and returns them as a named list with elements \code{value},
-\code{gradient}, and \code{hessian}. It is required that \code{hessian} is
-of class \code{matrix}.}
+\code{gradient}, and \code{hessian}.}
 
 \item{npar}{The number of parameters of \code{f}.}
 
 \item{controls}{Either \code{NULL} or a named list with the following elements. Missing
-elements are set to default values (printed in parentheses).
+elements are set to the default values in parentheses.
 \itemize{
 \item \code{init_runs} \code{(5)}:
-The number of short initial searches.
+The number of initial searches.
 \item \code{init_min} \code{(-1)}:
-The minimum value for the random initialization.
+The minimum argument value for the random initialization.
 \item \code{init_max} \code{(1)}:
-The maximum value for the random initialization.
+The maximum argument value for the random initialization.
 \item \code{init_iterlim} \code{(20)}:
-The number of iterations for the short initial searches.
+The number of iterations for the initial searches.
 \item \code{neighborhoods} \code{(5)}:
 The number of nested neighborhoods.
 \item \code{neighbors} \code{(5)}:
@@ -32,26 +31,19 @@ The number of neighbors in each neighborhood.
 \item \code{beta} \code{(0.05)}:
 A non-negative weight factor to account for the function's curvature in the
 selection of the neighbors. If \code{beta = 0}, the curvature is ignored.
-The higher the value, the higher probability of selecting a neighbor in the
-direction of the highest function curvature.
+The higher the value, the higher the probability of selecting a neighbor in
+the direction of the highest function curvature.
 \item \code{iterlim} \code{(1000)}:
 The maximum number of iterations to be performed before the local search is
 terminated.
-\item \code{only_global} \code{(FALSE)}:
-A boolean. Set \code{only_global = TRUE} if you are only interested in the
-global optimum. In this case, the algorithm will interrupt any local search
-prematurely that converges to a local optimum. This saves computation time.
-If \code{only_global = FALSE} (the default), the algorithm also looks for local
-optima.
-\item \code{tolerance} \code{(1e-5)}:
-Passed on to \code{\link{all.equal}}, which is used to check if two optima
-are equal.
+\item \code{tolerance} \code{sqrt(.Machine$double.eps)}:
+A positive scalar giving the tolerance for comparing different optimal
+arguments for equality.
 }}
 }
 \value{
-Invisibly a boolean, if \code{TRUE} than \code{f} is proper, \code{FALSE}
-otherwise.
+No return value, called for side-effects.
 }
 \description{
-Function that checks \code{f} for \code{\link{search}}.
+This function checks the input \code{f} for the vntrs package.
 }

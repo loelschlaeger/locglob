@@ -25,14 +25,14 @@
 #'   \item \code{iterlim} \code{(1000)}:
 #'   The maximum number of iterations to be performed before the local search is
 #'   terminated.
-#'   \item \code{tolerance} \code{(1e-5)}:
-#'   A tolerance value for comparing optimal arguments for equality.
+#'   \item \code{tolerance} \code{sqrt(.Machine$double.eps)}:
+#'   A positive scalar giving the tolerance for comparing different optimal
+#'   arguments for equality.
 #' }
 #' @return
 #' The checked and filled list \code{controls}.
 
 check_controls = function(controls){
-
   if(is.null(controls))
     controls = list()
   if(!is.list(controls))
@@ -75,9 +75,8 @@ check_controls = function(controls){
   if(!is.numeric(controls[["iterlim"]]))
     stop("'controls$iterlim' must be a numeric.")
   if(is.null(controls[["tolerance"]]))
-    controls[["tolerance"]] = 1e-5
+    controls[["tolerance"]] = sqrt(.Machine$double.eps)
   if(!(is.numeric(controls[["tolerance"]]) && controls[["tolerance"]] >= 0))
     stop("'controls$tolerance' must be non-negative.")
-
   return(controls)
 }

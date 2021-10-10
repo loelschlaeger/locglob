@@ -36,7 +36,9 @@ vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
   }
   if(!is.null(seed))
     set.seed(seed)
+  cat("Check controls.\n")
   controls = check_controls(controls = controls)
+  cat("Check function.\n")
   check_f(f = f, npar = npar, controls = controls)
 
   ### initialization of variable neighborhood search
@@ -99,7 +101,17 @@ vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
   }
 
   ### prepare output
-  out = prepare_output(L = L, minimize = minimize)
+  if(length(L) == 0){
+    warning("No optima found.")
+    return(NULL)
+  }
+  arguments = sapply(L,function(x)x$argument)
+  if(npar > 1)
+    arguments = t(arguments)
+  values = sapply(L,function(x)x$value)
+  global = values == ifelse(minimize,min,max)(values)
+  out = data.frame(arguments, values, global)
+  colnames(out) = c(paste0("p",1:npar), "value", "global")
   class(out) = "vntrs"
 
   ### return output

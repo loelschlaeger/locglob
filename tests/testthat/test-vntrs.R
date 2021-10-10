@@ -12,7 +12,8 @@ test_that("Gramacy & Lee function example works", {
   }
   out = vntrs(f = gramacy_lee, npar = 1, seed = 1)
   expect_snapshot(out)
-  expect_snapshot(unlist(out))
+  class(out) = "data.frame"
+  expect_snapshot(out)
 })
 
 test_that("Shubert function example works", {
@@ -39,7 +40,8 @@ test_that("Shubert function example works", {
   }
   out = vntrs(f = shubert, npar = 2, seed = 1)
   expect_snapshot(out)
-  expect_snapshot(unlist(out))
+  class(out) = "data.frame"
+  expect_snapshot(out)
 })
 
 test_that("Rosenbrock function example works", {
@@ -61,7 +63,8 @@ test_that("Rosenbrock function example works", {
   }
   out = vntrs(f = rosenbrock, npar = 2, seed = 1)
   expect_snapshot(out)
-  expect_snapshot(unlist(out))
+  class(out) = "data.frame"
+  expect_snapshot(out)
 })
 
 
