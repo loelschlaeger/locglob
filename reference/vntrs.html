@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Identify local and global optima. — vntrs • vntrs</title>
+<title>Variable neighborhood trust region search. — vntrs • vntrs</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Identify local and global optima. — vntrs" />
-<meta property="og:description" content="Function that identifies local and global optima via variable neighborhood
-trust region search (VNTRS)." />
+<meta property="og:title" content="Variable neighborhood trust region search. — vntrs" />
+<meta property="og:description" content="This function performs variable neighborhood trust region search." />
 <meta property="og:image" content="https://loelschlaeger.github.io/vntrs/logo.png" />
 
 
@@ -124,14 +123,13 @@ trust region search (VNTRS)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Identify local and global optima.</h1>
+    <h1>Variable neighborhood trust region search.</h1>
     
     <div class="hidden name"><code>vntrs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Function that identifies local and global optima via variable neighborhood
-trust region search (VNTRS).</p>
+    <p>This function performs variable neighborhood trust region search.</p>
     </div>
 
     <pre class="usage"><span class='fu'>vntrs</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>npar</span>, minimize <span class='op'>=</span> <span class='cn'>TRUE</span>, controls <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span>, seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
@@ -143,8 +141,7 @@ trust region search (VNTRS).</p>
       <th>f</th>
       <td><p>A function that computes value, gradient, and Hessian of the function to be
 optimized and returns them as a named list with elements <code>value</code>,
-<code>gradient</code>, and <code>hessian</code>. It is required that <code>hessian</code> is
-of class <code>matrix</code>.</p></td>
+<code>gradient</code>, and <code>hessian</code>.</p></td>
     </tr>
     <tr>
       <th>npar</th>
@@ -152,21 +149,20 @@ of class <code>matrix</code>.</p></td>
     </tr>
     <tr>
       <th>minimize</th>
-      <td><p>A boolean, determining whether <code>f</code> should be minimized
-<code>minimize = TRUE</code> (the default) or maximized <code>minimize = FALSE</code>.</p></td>
+      <td><p>If <code>TRUE</code>, <code>f</code> gets minimized. If <code>FALSE</code>, maximized.</p></td>
     </tr>
     <tr>
       <th>controls</th>
       <td><p>Either <code>NULL</code> or a named list with the following elements. Missing
-elements are set to default values (printed in parentheses).</p><ul>
+elements are set to the default values in parentheses.</p><ul>
 <li><p><code>init_runs</code> <code>(5)</code>:
-The number of short initial searches.</p></li>
+The number of initial searches.</p></li>
 <li><p><code>init_min</code> <code>(-1)</code>:
-The minimum value for the random initialization.</p></li>
+The minimum argument value for the random initialization.</p></li>
 <li><p><code>init_max</code> <code>(1)</code>:
-The maximum value for the random initialization.</p></li>
+The maximum argument value for the random initialization.</p></li>
 <li><p><code>init_iterlim</code> <code>(20)</code>:
-The number of iterations for the short initial searches.</p></li>
+The number of iterations for the initial searches.</p></li>
 <li><p><code>neighborhoods</code> <code>(5)</code>:
 The number of nested neighborhoods.</p></li>
 <li><p><code>neighbors</code> <code>(5)</code>:
@@ -174,25 +170,19 @@ The number of neighbors in each neighborhood.</p></li>
 <li><p><code>beta</code> <code>(0.05)</code>:
 A non-negative weight factor to account for the function's curvature in the
 selection of the neighbors. If <code>beta = 0</code>, the curvature is ignored.
-The higher the value, the higher probability of selecting a neighbor in the
-direction of the highest function curvature.</p></li>
+The higher the value, the higher the probability of selecting a neighbor in
+the direction of the highest function curvature.</p></li>
 <li><p><code>iterlim</code> <code>(1000)</code>:
 The maximum number of iterations to be performed before the local search is
 terminated.</p></li>
-<li><p><code>only_global</code> <code>(FALSE)</code>:
-A boolean. Set <code>only_global = TRUE</code> if you are only interested in the
-global optimum. In this case, the algorithm will interrupt any local search
-prematurely that converges to a local optimum. This saves computation time.
-If <code>only_global = FALSE</code> (the default), the algorithm also looks for local
-optima.</p></li>
-<li><p><code>tolerance</code> <code>(1e-5)</code>:
-Passed on to <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></code>, which is used to check if two optima
-are equal.</p></li>
+<li><p><code>tolerance</code> <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt(.Machine$double.eps)</a></code>:
+A positive scalar giving the tolerance for comparing different optimal
+arguments for equality.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>quiet</th>
-      <td><p>Set <code>quiet = FALSE</code> to print progress.</p></td>
+      <td><p>If <code>TRUE</code>, progress messages are suppressed.</p></td>
     </tr>
     <tr>
       <th>seed</th>
@@ -202,76 +192,19 @@ are equal.</p></li>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of two list,</p><ul>
-<li><p><code>global</code> optima and</p></li>
-<li><p><code>local</code> optima,</p></li>
-</ul><p>each of which contains lists with</p><ul>
-<li><p><code>value</code> and</p></li>
-<li><p><code>argument</code></p></li>
-</ul><p>of each identified optimum.</p>
+    <p>A data frame. Each row contains information of an identified optimum. The
+first <code>npar</code> columns <code>"p1"</code>,...,<code>"pn"</code> store the argument
+values, the next column <code>"value"</code> has the optimal function values and
+the last column <code>"global"</code> contains <code>TRUE</code> for global optima and
+<code>FALSE</code> for local optima.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"
 <a href='https://doi.org/10.1287/ijoc.1090.0343'>https://doi.org/10.1287/ijoc.1090.0343</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>### Gramacy &amp; Lee function</span>
-<span class='va'>gramacy_lee</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span>
- <span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>*</span><span class='va'>pi</span><span class='op'>*</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='op'>(</span><span class='va'>x</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>4</span><span class='op'>)</span>
- <span class='va'>g</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='st'>"x"</span><span class='op'>)</span>
- <span class='va'>h</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g</span>, <span class='st'>"x"</span><span class='op'>)</span>
- <span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
- <span class='va'>g</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>
- <span class='va'>h</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>f</span>, gradient <span class='op'>=</span> <span class='va'>g</span>, hessian <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='fu'>vntrs</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>gramacy_lee</span>, npar <span class='op'>=</span> <span class='fl'>1</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in !controls$only_global: invalid argument type</span></div><div class='input'>
-<span class='co'>### Shubert function</span>
-<span class='va'>shubert</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>)</span>
- <span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span>
-   <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>x1</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>*</span><span class='va'>x1</span><span class='op'>+</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>3</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>*</span><span class='va'>x1</span><span class='op'>+</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>4</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>*</span><span class='va'>x1</span><span class='op'>+</span><span class='fl'>4</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fl'>5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>*</span><span class='va'>x1</span><span class='op'>+</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span>
-   <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>+</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>3</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>+</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>4</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>+</span><span class='fl'>4</span><span class='op'>)</span> <span class='op'>+</span>
-   <span class='fl'>5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>+</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
- <span class='op'>)</span>
- <span class='va'>g1</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='st'>"x1"</span><span class='op'>)</span>
- <span class='va'>g2</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='st'>"x2"</span><span class='op'>)</span>
- <span class='va'>h11</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g1</span>, <span class='st'>"x1"</span><span class='op'>)</span>
- <span class='va'>h12</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g1</span>, <span class='st'>"x2"</span><span class='op'>)</span>
- <span class='va'>h22</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g2</span>, <span class='st'>"x2"</span><span class='op'>)</span>
- <span class='va'>x1</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
- <span class='va'>x2</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
- <span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
- <span class='va'>g</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>g1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>g2</span><span class='op'>)</span><span class='op'>)</span>
- <span class='va'>h</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h11</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h12</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h12</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h22</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>f</span>, gradient <span class='op'>=</span> <span class='va'>g</span>, hessian <span class='op'>=</span> <span class='va'>h</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='fu'>vntrs</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>shubert</span>, npar <span class='op'>=</span> <span class='fl'>2</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in !controls$only_global: invalid argument type</span></div><div class='input'>
-<span class='co'>### Rosenbrock function</span>
-<span class='va'>rosenbrock</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>)</span>
-  <span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fl'>100</span> <span class='op'>*</span> <span class='op'>(</span><span class='va'>x2</span> <span class='op'>-</span> <span class='va'>x1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>-</span> <span class='va'>x1</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
-  <span class='va'>g1</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='st'>"x1"</span><span class='op'>)</span>
-  <span class='va'>g2</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='st'>"x2"</span><span class='op'>)</span>
-  <span class='va'>h11</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g1</span>, <span class='st'>"x1"</span><span class='op'>)</span>
-  <span class='va'>h12</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g1</span>, <span class='st'>"x2"</span><span class='op'>)</span>
-  <span class='va'>h22</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g2</span>, <span class='st'>"x2"</span><span class='op'>)</span>
-  <span class='va'>x1</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
-  <span class='va'>x2</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
-  <span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
-  <span class='va'>g</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>g1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>g2</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>h</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h11</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h12</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h12</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h22</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>f</span>, gradient <span class='op'>=</span> <span class='va'>g</span>, hessian <span class='op'>=</span> <span class='va'>h</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='fu'>vntrs</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>rosenbrock</span>, npar <span class='op'>=</span> <span class='fl'>2</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in !controls$only_global: invalid argument type</span></div></pre>
+    <pre class="examples"><div class='input'><span class='co'>### missing</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

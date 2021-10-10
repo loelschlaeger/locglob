@@ -141,8 +141,7 @@
       <th>f</th>
       <td><p>A function that computes value, gradient, and Hessian of the function to be
 optimized and returns them as a named list with elements <code>value</code>,
-<code>gradient</code>, and <code>hessian</code>. It is required that <code>hessian</code> is
-of class <code>matrix</code>.</p></td>
+<code>gradient</code>, and <code>hessian</code>.</p></td>
     </tr>
     <tr>
       <th>parinit</th>
@@ -150,21 +149,20 @@ of class <code>matrix</code>.</p></td>
     </tr>
     <tr>
       <th>minimize</th>
-      <td><p>A boolean, determining whether <code>f</code> should be minimized
-<code>minimize = TRUE</code> (the default) or maximized <code>minimize = FALSE</code>.</p></td>
+      <td><p>If <code>TRUE</code>, <code>f</code> gets minimized. If <code>FALSE</code>, maximized.</p></td>
     </tr>
     <tr>
       <th>controls</th>
       <td><p>Either <code>NULL</code> or a named list with the following elements. Missing
-elements are set to default values (printed in parentheses).</p><ul>
+elements are set to the default values in parentheses.</p><ul>
 <li><p><code>init_runs</code> <code>(5)</code>:
-The number of short initial searches.</p></li>
+The number of initial searches.</p></li>
 <li><p><code>init_min</code> <code>(-1)</code>:
-The minimum value for the random initialization.</p></li>
+The minimum argument value for the random initialization.</p></li>
 <li><p><code>init_max</code> <code>(1)</code>:
-The maximum value for the random initialization.</p></li>
+The maximum argument value for the random initialization.</p></li>
 <li><p><code>init_iterlim</code> <code>(20)</code>:
-The number of iterations for the short initial searches.</p></li>
+The number of iterations for the initial searches.</p></li>
 <li><p><code>neighborhoods</code> <code>(5)</code>:
 The number of nested neighborhoods.</p></li>
 <li><p><code>neighbors</code> <code>(5)</code>:
@@ -172,20 +170,14 @@ The number of neighbors in each neighborhood.</p></li>
 <li><p><code>beta</code> <code>(0.05)</code>:
 A non-negative weight factor to account for the function's curvature in the
 selection of the neighbors. If <code>beta = 0</code>, the curvature is ignored.
-The higher the value, the higher probability of selecting a neighbor in the
-direction of the highest function curvature.</p></li>
+The higher the value, the higher the probability of selecting a neighbor in
+the direction of the highest function curvature.</p></li>
 <li><p><code>iterlim</code> <code>(1000)</code>:
 The maximum number of iterations to be performed before the local search is
 terminated.</p></li>
-<li><p><code>only_global</code> <code>(FALSE)</code>:
-A boolean. Set <code>only_global = TRUE</code> if you are only interested in the
-global optimum. In this case, the algorithm will interrupt any local search
-prematurely that converges to a local optimum. This saves computation time.
-If <code>only_global = FALSE</code> (the default), the algorithm also looks for local
-optima.</p></li>
-<li><p><code>tolerance</code> <code>(1e-5)</code>:
-Passed on to <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></code>, which is used to check if two optima
-are equal.</p></li>
+<li><p><code>tolerance</code> <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt(.Machine$double.eps)</a></code>:
+A positive scalar giving the tolerance for comparing different optimal
+arguments for equality.</p></li>
 </ul></td>
     </tr>
     <tr>
