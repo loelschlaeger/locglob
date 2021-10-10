@@ -1,6 +1,6 @@
-#' Check new optimum for uniqueness
+#' Check new optimum for uniqueness.
 #' @description
-#' Function that checks if a new optimum at \code{argument} is not yet contained
+#' This function checks if a new optimum \code{argument} is not yet contained
 #' in \code{L}.
 #' @param L
 #' A list of identified optima which contains lists with
