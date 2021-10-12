@@ -92,18 +92,13 @@
 <ol>
 <li><p>Install the latest version of <strong>vntrs</strong> via running <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("vntrs")</a></code> in your R console.</p></li>
 <li><p>Specify an R function <code>f</code> that computes value, gradient, and Hessian of the function to be optimized and returns them as a named list with elements <code>value</code>, <code>gradient</code>, and <code>hessian</code>.</p></li>
-<li><p>Call <code><a href="https://rdrr.io/r/base/search.html">vntrs::search(f = f, npar = npar, minimize = minimize)</a></code>, where</p></li>
+<li><p>Call <code><a href="reference/vntrs.html">vntrs::vntrs(f = f, npar = npar, minimize = minimize)</a></code>, where</p></li>
 </ol>
 <ul>
 <li><p><code>npar</code> is the number of parameters of <code>f</code> and</p></li>
 <li><p><code>minimize</code> is a boolean, determining whether <code>f</code> should be minimized (<code>minimize = TRUE</code>, the default) or maximized (<code>minimize = FALSE</code>).</p></li>
 </ul>
 <p>Optionally, you can tune the algorithm by specifying the named list <code>controls</code> and passing it to <code>search</code>, see the help file of <code>search</code> for details.</p>
-</div>
-<div id="global-and-local-optima" class="section level2">
-<h2 class="hasAnchor">
-<a href="#global-and-local-optima" class="anchor"></a>Global and local optima</h2>
-<p>There is one important element in <code>controls</code>, called <code>only_global</code>: Set <code>only_global = TRUE</code> if you are only interested in the global optimum of <code>f</code>. In this case, the algorithm will interrupt any local search prematurely that seems to converge to a local optimum. This saves computation time. If <code>only_global = FALSE</code> (the default), the algorithm also looks for local optima.</p>
 </div>
 </div>
   </div>
