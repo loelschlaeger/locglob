@@ -19,7 +19,23 @@
 #' the last column \code{"global"} contains \code{TRUE} for global optima and
 #' \code{FALSE} for local optima.
 #' @examples
-#' ### missing
+#' rosenbrock = function(x) {
+#'   stopifnot(is.numeric(x))
+#'   stopifnot(length(x) == 2)
+#'   f = expression(100 * (x2 - x1^2)^2 + (1 - x1)^2)
+#'   g1 = D(f, "x1")
+#'   g2 = D(f, "x2")
+#'   h11 = D(g1, "x1")
+#'   h12 = D(g1, "x2")
+#'   h22 = D(g2, "x2")
+#'   x1 = x[1]
+#'   x2 = x[2]
+#'   f = eval(f)
+#'   g = c(eval(g1), eval(g2))
+#'   h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
+#'   list(value = f, gradient = g, hessian = h)
+#' }
+#' vntrs(f = rosenbrock, npar = 2, seed = 1)
 #' @export
 
 vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
