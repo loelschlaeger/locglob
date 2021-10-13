@@ -175,9 +175,11 @@ the direction of the highest function curvature.</p></li>
 <li><p><code>iterlim</code> (<code>1000</code>):
 The maximum number of iterations to be performed before the local search is
 terminated.</p></li>
-<li><p><code>tolerance</code> (<code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt(.Machine$double.eps)</a></code>):
+<li><p><code>tolerance</code> (<code>1e-6</code>):
 A positive scalar giving the tolerance for comparing different optimal
 arguments for equality.</p></li>
+<li><p><code>time_limit</code> (<code>NULL</code>):
+The time limit in seconds for the algorithm.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -220,9 +222,8 @@ the last column <code>"global"</code> contains <code>TRUE</code> for global opti
   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>f</span>, gradient <span class='op'>=</span> <span class='va'>g</span>, hessian <span class='op'>=</span> <span class='va'>h</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='fu'>vntrs</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>rosenbrock</span>, npar <span class='op'>=</span> <span class='fl'>2</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Optimum: 2.114623e-15 
-#&gt; Global optima: 1 
-#&gt; Local optima: 1 </div></pre>
+</div><div class='output co'>#&gt;   p1        p2        value global
+#&gt; 1  1 0.9999999 2.114623e-15   TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
