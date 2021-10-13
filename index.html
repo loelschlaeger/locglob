@@ -86,11 +86,16 @@
 </h1></div>
 <!-- badges: start -->
 
+<div id="about" class="section level2">
+<h2 class="hasAnchor">
+<a href="#about" class="anchor"></a>About</h2>
+<p>This package is an implementation of the variable neighborhood trust region algorithm Bierlaire et al. (2009) “A Heuristic for Nonlinear Global Optimization”.</p>
+</div>
 <div id="how-to-get-started" class="section level2">
 <h2 class="hasAnchor">
-<a href="#how-to-get-started" class="anchor"></a>How to get started?</h2>
+<a href="#how-to-get-started" class="anchor"></a>How to get started</h2>
 <ol>
-<li><p>Install the latest version of <strong>vntrs</strong> via running <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("vntrs")</a></code> in your R console.</p></li>
+<li><p>Install the latest package version via running <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("vntrs")</a></code> in your R console.</p></li>
 <li><p>Specify an R function <code>f</code> that computes value, gradient, and Hessian of the function to be optimized and returns them as a named list with elements <code>value</code>, <code>gradient</code>, and <code>hessian</code>.</p></li>
 <li><p>Call <code><a href="reference/vntrs.html">vntrs::vntrs(f = f, npar = npar, minimize = minimize)</a></code>, where</p></li>
 </ol>
@@ -98,7 +103,7 @@
 <li><p><code>npar</code> is the number of parameters of <code>f</code> and</p></li>
 <li><p><code>minimize</code> is a boolean, determining whether <code>f</code> should be minimized (<code>minimize = TRUE</code>, the default) or maximized (<code>minimize = FALSE</code>).</p></li>
 </ul>
-<p>Optionally, you can tune the algorithm by specifying the named list <code>controls</code> and passing it to <code>search</code>, see the help file of <code>search</code> for details.</p>
+<p>Optionally, you can tune the algorithm by specifying the named list <code>controls</code> and passing it to <code>search</code>. See the help file of <code><a href="reference/vntrs.html">help("vntrs")</a></code> for details.</p>
 </div>
 </div>
   </div>

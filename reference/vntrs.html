@@ -155,27 +155,27 @@ optimized and returns them as a named list with elements <code>value</code>,
       <th>controls</th>
       <td><p>Either <code>NULL</code> or a named list with the following elements. Missing
 elements are set to the default values in parentheses.</p><ul>
-<li><p><code>init_runs</code> <code>(5)</code>:
+<li><p><code>init_runs</code> (<code>5</code>):
 The number of initial searches.</p></li>
-<li><p><code>init_min</code> <code>(-1)</code>:
+<li><p><code>init_min</code> (<code>-1</code>):
 The minimum argument value for the random initialization.</p></li>
-<li><p><code>init_max</code> <code>(1)</code>:
+<li><p><code>init_max</code> (<code>1</code>):
 The maximum argument value for the random initialization.</p></li>
-<li><p><code>init_iterlim</code> <code>(20)</code>:
+<li><p><code>init_iterlim</code> (<code>20</code>):
 The number of iterations for the initial searches.</p></li>
-<li><p><code>neighborhoods</code> <code>(5)</code>:
+<li><p><code>neighborhoods</code> (<code>5</code>):
 The number of nested neighborhoods.</p></li>
-<li><p><code>neighbors</code> <code>(5)</code>:
+<li><p><code>neighbors</code> (<code>5</code>):
 The number of neighbors in each neighborhood.</p></li>
-<li><p><code>beta</code> <code>(0.05)</code>:
+<li><p><code>beta</code> (<code>0.05</code>):
 A non-negative weight factor to account for the function's curvature in the
 selection of the neighbors. If <code>beta = 0</code>, the curvature is ignored.
 The higher the value, the higher the probability of selecting a neighbor in
 the direction of the highest function curvature.</p></li>
-<li><p><code>iterlim</code> <code>(1000)</code>:
+<li><p><code>iterlim</code> (<code>1000</code>):
 The maximum number of iterations to be performed before the local search is
 terminated.</p></li>
-<li><p><code>tolerance</code> <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt(.Machine$double.eps)</a></code>:
+<li><p><code>tolerance</code> (<code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt(.Machine$double.eps)</a></code>):
 A positive scalar giving the tolerance for comparing different optimal
 arguments for equality.</p></li>
 </ul></td>
@@ -193,7 +193,7 @@ arguments for equality.</p></li>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame. Each row contains information of an identified optimum. The
-first <code>npar</code> columns <code>"p1"</code>,...,<code>"pn"</code> store the argument
+first <code>npar</code> columns <code>"p1"</code>,...,<code>"p&lt;npar&gt;"</code> store the argument
 values, the next column <code>"value"</code> has the optimal function values and
 the last column <code>"global"</code> contains <code>TRUE</code> for global optima and
 <code>FALSE</code> for local optima.</p>
@@ -203,8 +203,26 @@ the last column <code>"global"</code> contains <code>TRUE</code> for global opti
 <a href='https://doi.org/10.1287/ijoc.1090.0343'>https://doi.org/10.1287/ijoc.1090.0343</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>### missing</span>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>rosenbrock</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>)</span>
+  <span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fl'>100</span> <span class='op'>*</span> <span class='op'>(</span><span class='va'>x2</span> <span class='op'>-</span> <span class='va'>x1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>-</span> <span class='va'>x1</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+  <span class='va'>g1</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='st'>"x1"</span><span class='op'>)</span>
+  <span class='va'>g2</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='st'>"x2"</span><span class='op'>)</span>
+  <span class='va'>h11</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g1</span>, <span class='st'>"x1"</span><span class='op'>)</span>
+  <span class='va'>h12</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g1</span>, <span class='st'>"x2"</span><span class='op'>)</span>
+  <span class='va'>h22</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span><span class='op'>(</span><span class='va'>g2</span>, <span class='st'>"x2"</span><span class='op'>)</span>
+  <span class='va'>x1</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+  <span class='va'>x2</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
+  <span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
+  <span class='va'>g</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>g1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>g2</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>h</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h11</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h12</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h12</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>h22</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>f</span>, gradient <span class='op'>=</span> <span class='va'>g</span>, hessian <span class='op'>=</span> <span class='va'>h</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='fu'>vntrs</span><span class='op'>(</span>f <span class='op'>=</span> <span class='va'>rosenbrock</span>, npar <span class='op'>=</span> <span class='fl'>2</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Optimum: 2.114623e-15 
+#&gt; Global optima: 1 
+#&gt; Local optima: 1 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
