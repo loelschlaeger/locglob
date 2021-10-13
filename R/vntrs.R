@@ -54,6 +54,8 @@ vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
     set.seed(seed)
   cat("Check controls.\n")
   controls = check_controls(controls = controls)
+  if(!is.null(controls$time_limit))
+    start_time = Sys.time()
   cat("Check function.\n")
   check_f(f = f, npar = npar, controls = controls)
 
@@ -67,7 +69,9 @@ vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
   ### iterative variable neighborhood search
   cat("Start VNTRS.\n")
   k = 1
+  stop = FALSE
   while(k <= controls$neighborhoods){
+    if(stop) break
 
     ### select neighbors
     cat(paste0("* Select neighborhood ",k,".\n"))
@@ -76,6 +80,16 @@ vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
 
     ### perform local search around neighbors
     for(j in seq_len(length(z))){
+
+      ### check total time
+      if(!is.null(controls$time_limit)){
+        if(difftime(Sys.time(), start_time, units = "secs") > controls$time_limit){
+          stop = TRUE
+          warning("Stopped early because 'controls$time_limit' reached.",
+                  call. = FALSE, immediate. = TRUE, noBreaks. = TRUE)
+          break
+        }
+      }
 
       ### perform local search
       cat("** Neighbor",j)
@@ -128,7 +142,6 @@ vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
   global = values == ifelse(minimize,min,max)(values)
   out = data.frame(arguments, values, global)
   colnames(out) = c(paste0("p",1:npar), "value", "global")
-  class(out) = "vntrs"
 
   ### return output
   cat("Done.\n")

@@ -13,18 +13,15 @@
 #' The argument of a candidate optimum.
 #' @param tolerance
 #' A non-negative numeric value. For an identified optimum and a candidate
-#' optimum, if all coordinate differences are smaller than `tolerance`, they
-#' are considered as equal.
-#' \code{tolerance},
+#' optimum, if all coordinate differences are smaller than \code{tolerance},
+#' they are considered as equal.
 #' @return
 #' A boolean. If \code{TRUE}, \code{argument} is not contained in \code{L}.
 #' If \code{FALSE}, \code{argument} is already contained in \code{L}.
 
 unique_optimum = function(L, argument, tolerance){
   for(i in seq_len(length(L)))
-    if(isTRUE(all.equal(target = L[[i]]$argument,
-                        current = argument,
-                        tolerance = tolerance)))
+    if(sqrt(sum((argument-L[[i]]$argument)^2)) < tolerance)
       return(FALSE)
   return(TRUE)
 }

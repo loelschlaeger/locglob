@@ -17,9 +17,8 @@ of each identified optimum.}
 \item{argument}{The argument of a candidate optimum.}
 
 \item{tolerance}{A non-negative numeric value. For an identified optimum and a candidate
-optimum, if all coordinate differences are smaller than \code{tolerance}, they
-are considered as equal.
-\code{tolerance},}
+optimum, if all coordinate differences are smaller than \code{tolerance},
+they are considered as equal.}
 }
 \value{
 A boolean. If \code{TRUE}, \code{argument} is not contained in \code{L}.

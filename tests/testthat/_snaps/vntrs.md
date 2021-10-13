@@ -1,16 +1,7 @@
 # Gramacy & Lee function example works
 
     Code
-      out
-    Output
-      Optimum: -1.710543 
-      Global optima: 1 
-      Local optima: 4 
-
----
-
-    Code
-      out
+      vntrs(f = gramacy_lee, npar = 1, seed = 1)
     Output
                 p1      value global
       1 -0.3403684  1.8254676  FALSE
@@ -22,16 +13,7 @@
 # Shubert function example works
 
     Code
-      out
-    Output
-      Optimum: -123.5768 
-      Global optima: 2 
-      Local optima: 6 
-
----
-
-    Code
-      out
+      vntrs(f = shubert, npar = 2, seed = 1)
     Output
                 p1         p2      value global
       1  1.3200043 -0.1953858  -24.93701  FALSE
@@ -46,18 +28,8 @@
 # Rosenbrock function example works
 
     Code
-      out
+      vntrs(f = rosenbrock, npar = 2, seed = 1)
     Output
-      Optimum: 2.114623e-15 
-      Global optima: 1 
-      Local optima: 1 
-
----
-
-    Code
-      out
-    Output
-               p1        p2        value global
-      1 1.0000000 0.9999999 2.114623e-15   TRUE
-      2 0.9999999 0.9999998 2.518061e-14  FALSE
+        p1        p2        value global
+      1  1 0.9999999 2.114623e-15   TRUE
 

@@ -38,9 +38,11 @@ the direction of the highest function curvature.
 \item \code{iterlim} (\code{1000}):
 The maximum number of iterations to be performed before the local search is
 terminated.
-\item \code{tolerance} (\code{sqrt(.Machine$double.eps)}):
+\item \code{tolerance} (\code{1e-6}):
 A positive scalar giving the tolerance for comparing different optimal
 arguments for equality.
+\item \code{time_limit} (\code{NULL}):
+The time limit in seconds for the algorithm.
 }}
 
 \item{quiet}{If \code{TRUE}, progress messages are suppressed.}

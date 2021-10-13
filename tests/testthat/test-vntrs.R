@@ -10,10 +10,7 @@ test_that("Gramacy & Lee function example works", {
     h = eval(h)
     list(value = f, gradient = g, hessian = as.matrix(h))
   }
-  out = vntrs(f = gramacy_lee, npar = 1, seed = 1)
-  expect_snapshot(out)
-  class(out) = "data.frame"
-  expect_snapshot(out)
+  expect_snapshot(vntrs(f = gramacy_lee, npar = 1, seed = 1))
 })
 
 test_that("Shubert function example works", {
@@ -38,10 +35,7 @@ test_that("Shubert function example works", {
     h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
     list(value = f, gradient = g, hessian = h)
   }
-  out = vntrs(f = shubert, npar = 2, seed = 1)
-  expect_snapshot(out)
-  class(out) = "data.frame"
-  expect_snapshot(out)
+  expect_snapshot(vntrs(f = shubert, npar = 2, seed = 1))
 })
 
 test_that("Rosenbrock function example works", {
@@ -61,10 +55,7 @@ test_that("Rosenbrock function example works", {
     h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
     list(value = f, gradient = g, hessian = h)
   }
-  out = vntrs(f = rosenbrock, npar = 2, seed = 1)
-  expect_snapshot(out)
-  class(out) = "data.frame"
-  expect_snapshot(out)
+  expect_snapshot(vntrs(f = rosenbrock, npar = 2, seed = 1))
 })
 
 

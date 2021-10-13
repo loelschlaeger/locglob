@@ -7,7 +7,8 @@ library(showtext)   # Using Fonts More Easily in R Graphs
 font_add_google("Inconsolata", "incon")
 
 ### color palette (1. background, 2. border and pkgname, 3. plot)
-cp = c("#C2F9BB","#2E3532","#2E3532")
+cp = c("white","black","white")
+#cp = c("#C2F9BB","#2E3532","#2E3532")
 
 ### create subplot
 library(ggplot2)
