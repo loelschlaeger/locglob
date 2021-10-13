@@ -14,7 +14,7 @@
 #' Set a seed for the sampling of the random starting points.
 #' @return
 #' A data frame. Each row contains information of an identified optimum. The
-#' first \code{npar} columns \code{"p1"},...,\code{"pn"} store the argument
+#' first \code{npar} columns \code{"p1"},...,\code{"p<npar>"} store the argument
 #' values, the next column \code{"value"} has the optimal function values and
 #' the last column \code{"global"} contains \code{TRUE} for global optima and
 #' \code{FALSE} for local optima.

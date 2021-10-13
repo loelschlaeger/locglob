@@ -2,7 +2,7 @@
 % Please edit documentation in R/unique_optimum.R
 \name{unique_optimum}
 \alias{unique_optimum}
-\title{Check new optimum for uniqueness}
+\title{Check new optimum for uniqueness.}
 \usage{
 unique_optimum(L, argument, tolerance)
 }
@@ -26,6 +26,6 @@ A boolean. If \code{TRUE}, \code{argument} is not contained in \code{L}.
 If \code{FALSE}, \code{argument} is already contained in \code{L}.
 }
 \description{
-Function that checks if a new optimum at \code{argument} is not yet contained
+This function checks if a new optimum \code{argument} is not yet contained
 in \code{L}.
 }

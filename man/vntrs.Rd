@@ -18,27 +18,27 @@ optimized and returns them as a named list with elements \code{value},
 \item{controls}{Either \code{NULL} or a named list with the following elements. Missing
 elements are set to the default values in parentheses.
 \itemize{
-\item \code{init_runs} \code{(5)}:
+\item \code{init_runs} (\code{5}):
 The number of initial searches.
-\item \code{init_min} \code{(-1)}:
+\item \code{init_min} (\code{-1}):
 The minimum argument value for the random initialization.
-\item \code{init_max} \code{(1)}:
+\item \code{init_max} (\code{1}):
 The maximum argument value for the random initialization.
-\item \code{init_iterlim} \code{(20)}:
+\item \code{init_iterlim} (\code{20}):
 The number of iterations for the initial searches.
-\item \code{neighborhoods} \code{(5)}:
+\item \code{neighborhoods} (\code{5}):
 The number of nested neighborhoods.
-\item \code{neighbors} \code{(5)}:
+\item \code{neighbors} (\code{5}):
 The number of neighbors in each neighborhood.
-\item \code{beta} \code{(0.05)}:
+\item \code{beta} (\code{0.05}):
 A non-negative weight factor to account for the function's curvature in the
 selection of the neighbors. If \code{beta = 0}, the curvature is ignored.
 The higher the value, the higher the probability of selecting a neighbor in
 the direction of the highest function curvature.
-\item \code{iterlim} \code{(1000)}:
+\item \code{iterlim} (\code{1000}):
 The maximum number of iterations to be performed before the local search is
 terminated.
-\item \code{tolerance} \code{sqrt(.Machine$double.eps)}:
+\item \code{tolerance} (\code{sqrt(.Machine$double.eps)}):
 A positive scalar giving the tolerance for comparing different optimal
 arguments for equality.
 }}
@@ -49,7 +49,7 @@ arguments for equality.
 }
 \value{
 A data frame. Each row contains information of an identified optimum. The
-first \code{npar} columns \code{"p1"},...,\code{"pn"} store the argument
+first \code{npar} columns \code{"p1"},...,\code{"p<npar>"} store the argument
 values, the next column \code{"value"} has the optimal function values and
 the last column \code{"global"} contains \code{TRUE} for global optima and
 \code{FALSE} for local optima.
@@ -58,7 +58,23 @@ the last column \code{"global"} contains \code{TRUE} for global optima and
 This function performs variable neighborhood trust region search.
 }
 \examples{
-### missing
+rosenbrock = function(x) {
+  stopifnot(is.numeric(x))
+  stopifnot(length(x) == 2)
+  f = expression(100 * (x2 - x1^2)^2 + (1 - x1)^2)
+  g1 = D(f, "x1")
+  g2 = D(f, "x2")
+  h11 = D(g1, "x1")
+  h12 = D(g1, "x2")
+  h22 = D(g2, "x2")
+  x1 = x[1]
+  x2 = x[2]
+  f = eval(f)
+  g = c(eval(g1), eval(g2))
+  h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
+  list(value = f, gradient = g, hessian = h)
+}
+vntrs(f = rosenbrock, npar = 2, seed = 1)
 }
 \references{
 Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"

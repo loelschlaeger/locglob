@@ -24,7 +24,7 @@ sticker(
   s_width = 2,                    # Width of the sub plot
   s_height = 1.5,                   # Height of the sub plot
   # Font
-  package = "locglob",
+  package = "vntrs",
   p_size = 30,                      # Font size of the text
   p_y = 1,                          # Position of the font (y)
   p_x = 1,                          # Position of the font (x)

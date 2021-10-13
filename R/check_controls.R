@@ -5,27 +5,27 @@
 #' Either \code{NULL} or a named list with the following elements. Missing
 #' elements are set to the default values in parentheses.
 #' \itemize{
-#'   \item \code{init_runs} \code{(5)}:
+#'   \item \code{init_runs} (\code{5}):
 #'   The number of initial searches.
-#'   \item \code{init_min} \code{(-1)}:
+#'   \item \code{init_min} (\code{-1}):
 #'   The minimum argument value for the random initialization.
-#'   \item \code{init_max} \code{(1)}:
+#'   \item \code{init_max} (\code{1}):
 #'   The maximum argument value for the random initialization.
-#'   \item \code{init_iterlim} \code{(20)}:
+#'   \item \code{init_iterlim} (\code{20}):
 #'   The number of iterations for the initial searches.
-#'   \item \code{neighborhoods} \code{(5)}:
+#'   \item \code{neighborhoods} (\code{5}):
 #'   The number of nested neighborhoods.
-#'   \item \code{neighbors} \code{(5)}:
+#'   \item \code{neighbors} (\code{5}):
 #'   The number of neighbors in each neighborhood.
-#'   \item \code{beta} \code{(0.05)}:
+#'   \item \code{beta} (\code{0.05}):
 #'   A non-negative weight factor to account for the function's curvature in the
 #'   selection of the neighbors. If \code{beta = 0}, the curvature is ignored.
 #'   The higher the value, the higher the probability of selecting a neighbor in
 #'   the direction of the highest function curvature.
-#'   \item \code{iterlim} \code{(1000)}:
+#'   \item \code{iterlim} (\code{1000}):
 #'   The maximum number of iterations to be performed before the local search is
 #'   terminated.
-#'   \item \code{tolerance} \code{sqrt(.Machine$double.eps)}:
+#'   \item \code{tolerance} (\code{sqrt(.Machine$double.eps)}):
 #'   A positive scalar giving the tolerance for comparing different optimal
 #'   arguments for equality.
 #' }

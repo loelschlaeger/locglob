@@ -23,8 +23,8 @@ of each identified optimum.}
 \item{minimize}{If \code{TRUE}, \code{f} gets minimized. If \code{FALSE}, maximized.}
 }
 \value{
-Invisibly boolean, whether to interrupt or not.
+\code{TRUE} for premature interruption, \code{FALSE} if not.
 }
 \description{
-Function that checks if the local search can be interrupted.
+This function checks if the local search can be interrupted prematurely.
 }
