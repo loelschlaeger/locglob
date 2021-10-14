@@ -80,5 +80,5 @@ vntrs(f = rosenbrock, npar = 2, seed = 1)
 }
 \references{
 Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"
-\url{https://doi.org/10.1287/ijoc.1090.0343}
+\doi{10.1287/ijoc.1090.0343}.
 }

@@ -3,7 +3,7 @@
 #' This function performs variable neighborhood trust region search.
 #' @references
 #' Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"
-#' <https://doi.org/10.1287/ijoc.1090.0343>
+#' \doi{10.1287/ijoc.1090.0343}.
 #' @inheritParams check_f
 #' @param minimize
 #' If \code{TRUE}, \code{f} gets minimized. If \code{FALSE}, maximized.
