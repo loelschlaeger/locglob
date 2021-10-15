@@ -35,7 +35,7 @@
 #'   h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
 #'   list(value = f, gradient = g, hessian = h)
 #' }
-#' vntrs(f = rosenbrock, npar = 2, seed = 1)
+#' vntrs(f = rosenbrock, npar = 2, seed = 1, controls = list(neighborhoods = 1))
 #' @export
 
 vntrs = function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
