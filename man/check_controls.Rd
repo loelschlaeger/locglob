@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_controls.R
 \name{check_controls}
 \alias{check_controls}
-\title{Check \code{controls}.}
+\title{Check controls}
 \usage{
 check_controls(controls)
 }
@@ -41,5 +41,5 @@ The time limit in seconds for the algorithm.
 The checked and filled list \code{controls}.
 }
 \description{
-This function checks the input \code{controls} for the vntrs package.
+This function checks the input \code{controls} for the {vntrs} package.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/unique_optimum.R
 \name{unique_optimum}
 \alias{unique_optimum}
-\title{Check new optimum for uniqueness.}
+\title{Check new optimum for uniqueness}
 \usage{
 unique_optimum(L, argument, tolerance)
 }
@@ -28,3 +28,4 @@ If \code{FALSE}, \code{argument} is already contained in \code{L}.
 This function checks if a new optimum \code{argument} is not yet contained
 in \code{L}.
 }
+\keyword{internal}

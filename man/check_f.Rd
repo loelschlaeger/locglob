@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_f.R
 \name{check_f}
 \alias{check_f}
-\title{Check \code{f}.}
+\title{Check function}
 \usage{
 check_f(f, npar, controls)
 }
@@ -47,5 +47,6 @@ The time limit in seconds for the algorithm.
 No return value, called for side-effects.
 }
 \description{
-This function checks the input \code{f} for the vntrs package.
+This function checks the input \code{f} for the {vntrs} package.
 }
+\keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/interruption.R
 \name{interruption}
 \alias{interruption}
-\title{Interrupt local search.}
+\title{Interrupt local search}
 \usage{
 interruption(f, point, L, minimize)
 }
@@ -28,3 +28,4 @@ of each identified optimum.}
 \description{
 This function checks if the local search can be interrupted prematurely.
 }
+\keyword{internal}
