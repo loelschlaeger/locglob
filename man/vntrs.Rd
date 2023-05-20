@@ -76,7 +76,7 @@ rosenbrock = function(x) {
   h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
   list(value = f, gradient = g, hessian = h)
 }
-vntrs(f = rosenbrock, npar = 2, seed = 1)
+vntrs(f = rosenbrock, npar = 2, seed = 1, controls = list(neighborhoods = 1))
 }
 \references{
 Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"

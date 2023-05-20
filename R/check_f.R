@@ -29,8 +29,7 @@ check_f = function(f, npar, controls) {
   for(run in seq_len(test_runs)){
     call = paste0("f(",paste(y[run,],collapse=","),")")
     out = try(f(y[run,]))
-    if(class(out) == "try-error")
-      stop("Could not compute ",call,".")
+    if(inherits(out,"try-error"))      stop("Could not compute ",call,".")
     if(!is.list(out))
       stop(call," does not return a list.")
     if(is.null(out[["value"]]))
