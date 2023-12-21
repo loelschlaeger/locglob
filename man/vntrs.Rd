@@ -2,7 +2,7 @@
 % Please edit documentation in R/vntrs.R
 \name{vntrs}
 \alias{vntrs}
-\title{Variable neighborhood trust region search.}
+\title{Variable neighborhood trust region search}
 \usage{
 vntrs(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE, seed = NULL)
 }
@@ -60,23 +60,24 @@ the last column \code{"global"} contains \code{TRUE} for global optima and
 This function performs variable neighborhood trust region search.
 }
 \examples{
-rosenbrock = function(x) {
+rosenbrock <- function(x) {
   stopifnot(is.numeric(x))
   stopifnot(length(x) == 2)
-  f = expression(100 * (x2 - x1^2)^2 + (1 - x1)^2)
-  g1 = D(f, "x1")
-  g2 = D(f, "x2")
-  h11 = D(g1, "x1")
-  h12 = D(g1, "x2")
-  h22 = D(g2, "x2")
-  x1 = x[1]
-  x2 = x[2]
-  f = eval(f)
-  g = c(eval(g1), eval(g2))
-  h = rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
+  f <- expression(100 * (x2 - x1^2)^2 + (1 - x1)^2)
+  g1 <- D(f, "x1")
+  g2 <- D(f, "x2")
+  h11 <- D(g1, "x1")
+  h12 <- D(g1, "x2")
+  h22 <- D(g2, "x2")
+  x1 <- x[1]
+  x2 <- x[2]
+  f <- eval(f)
+  g <- c(eval(g1), eval(g2))
+  h <- rbind(c(eval(h11), eval(h12)), c(eval(h12), eval(h22)))
   list(value = f, gradient = g, hessian = h)
 }
 vntrs(f = rosenbrock, npar = 2, seed = 1, controls = list(neighborhoods = 1))
+
 }
 \references{
 Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization"

@@ -2,7 +2,7 @@
 % Please edit documentation in R/local.R
 \name{local}
 \alias{local}
-\title{Perform trust region local search.}
+\title{Local trust region search}
 \usage{
 local(f, parinit, minimize, controls, L)
 }
@@ -65,3 +65,4 @@ terminated.
 \description{
 Function that links to \code{\link[trust]{trust}}.
 }
+\keyword{internal}

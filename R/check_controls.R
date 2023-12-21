@@ -1,6 +1,8 @@
-#' Check \code{controls}.
+#' Check controls
+#'
 #' @description
-#' This function checks the input \code{controls} for the vntrs package.
+#' This function checks the input \code{controls} for the {vntrs} package.
+#'
 #' @param controls
 #' Either \code{NULL} or a named list with the following elements. Missing
 #' elements are set to the default values in parentheses.
@@ -31,57 +33,107 @@
 #'   \item \code{time_limit} (\code{NULL}):
 #'   The time limit in seconds for the algorithm.
 #' }
+#'
 #' @return
 #' The checked and filled list \code{controls}.
+#'
+#' @export
 
-check_controls = function(controls){
-  if(is.null(controls))
-    controls = list()
-  if(!is.list(controls))
-    stop("'controls' must be a list.")
-  if(is.null(controls[["init_runs"]]))
-    controls[["init_runs"]] = 5
-  if(!(is.numeric(controls[["init_runs"]]) && controls[["init_runs"]]>0 &&
-       controls[["init_runs"]]%%1==0))
-    stop("'controls$init_runs' must be a positive number.")
-  if(is.null(controls[["init_min"]]))
-    controls[["init_min"]] = -1
-  if(!is.numeric(controls[["init_min"]]))
-    stop("'controls$init_min' must be a numeric.")
-  if(is.null(controls[["init_max"]]))
-    controls[["init_max"]] = 1
-  if(!is.numeric(controls[["init_max"]]))
-    stop("'controls$init_max' must be a numeric.")
-  if(controls[["init_max"]] < controls[["init_min"]])
-    stop("'controls$init_max' must not be smaller than controls$init_min.")
-  if(is.null(controls[["init_iterlim"]]))
-    controls[["init_iterlim"]] = 20
-  if(!is.numeric(controls[["init_iterlim"]]))
-    stop("'controls$init_iterlim' must be a numeric.")
-  if(is.null(controls[["neighborhoods"]]))
-    controls[["neighborhoods"]] = 5
-  if(!(is.numeric(controls[["neighborhoods"]]) &&
-       controls[["neighborhoods"]]>0 && controls[["neighborhoods"]]%%1==0))
-    stop("'controls$neighborhoods' must be a positive number.")
-  if(is.null(controls[["neighbors"]]))
-    controls[["neighbors"]] = 5
-  if(!(is.numeric(controls[["neighbors"]]) &&
-       controls[["neighbors"]]>0 && controls[["neighbors"]]%%1==0))
-    stop("'controls$neighbors' must be a positive number.")
-  if(is.null(controls[["beta"]]))
-    controls[["beta"]] = 0.05
-  if(!(is.numeric(controls[["beta"]]) && controls[["beta"]] >= 0))
-    stop("'controls$beta' must be greater zero.")
-  if(is.null(controls[["iterlim"]]))
-    controls[["iterlim"]] = 1000
-  if(!is.numeric(controls[["iterlim"]]))
-    stop("'controls$iterlim' must be a numeric.")
-  if(is.null(controls[["tolerance"]]))
-    controls[["tolerance"]] = 1e-6
-  if(!(is.numeric(controls[["tolerance"]]) && controls[["tolerance"]] >= 0))
-    stop("'controls$tolerance' must be non-negative.")
-  if(!is.null(controls[["time_limit"]]))
-    if(!is.numeric(controls[["time_limit"]]))
-      stop("'controls$time_limit' must be a numeric.")
+check_controls <- function(controls) {
+  if (is.null(controls)) {
+    controls <- list()
+  }
+  if (!is.list(controls)) {
+    stop("'controls' must be a list.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["init_runs"]])) {
+    controls[["init_runs"]] <- 5
+  }
+  if (!(is.numeric(controls[["init_runs"]]) && controls[["init_runs"]] > 0 &&
+    controls[["init_runs"]] %% 1 == 0)) {
+    stop("'controls$init_runs' must be a positive number.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["init_min"]])) {
+    controls[["init_min"]] <- -1
+  }
+  if (!is.numeric(controls[["init_min"]])) {
+    stop("'controls$init_min' must be a numeric.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["init_max"]])) {
+    controls[["init_max"]] <- 1
+  }
+  if (!is.numeric(controls[["init_max"]])) {
+    stop("'controls$init_max' must be a numeric.",
+      call. = FALSE
+    )
+  }
+  if (controls[["init_max"]] < controls[["init_min"]]) {
+    stop("'controls$init_max' must not be smaller than controls$init_min.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["init_iterlim"]])) {
+    controls[["init_iterlim"]] <- 20
+  }
+  if (!is.numeric(controls[["init_iterlim"]])) {
+    stop("'controls$init_iterlim' must be a numeric.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["neighborhoods"]])) {
+    controls[["neighborhoods"]] <- 5
+  }
+  if (!(is.numeric(controls[["neighborhoods"]]) &&
+    controls[["neighborhoods"]] > 0 && controls[["neighborhoods"]] %% 1 == 0)) {
+    stop("'controls$neighborhoods' must be a positive number.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["neighbors"]])) {
+    controls[["neighbors"]] <- 5
+  }
+  if (!(is.numeric(controls[["neighbors"]]) &&
+    controls[["neighbors"]] > 0 && controls[["neighbors"]] %% 1 == 0)) {
+    stop("'controls$neighbors' must be a positive number.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["beta"]])) {
+    controls[["beta"]] <- 0.05
+  }
+  if (!(is.numeric(controls[["beta"]]) && controls[["beta"]] >= 0)) {
+    stop("'controls$beta' must be greater zero.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["iterlim"]])) {
+    controls[["iterlim"]] <- 1000
+  }
+  if (!is.numeric(controls[["iterlim"]])) {
+    stop("'controls$iterlim' must be a numeric.",
+      call. = FALSE
+    )
+  }
+  if (is.null(controls[["tolerance"]])) {
+    controls[["tolerance"]] <- 1e-6
+  }
+  if (!(is.numeric(controls[["tolerance"]]) && controls[["tolerance"]] >= 0)) {
+    stop("'controls$tolerance' must be non-negative.",
+      call. = FALSE
+    )
+  }
+  if (!is.null(controls[["time_limit"]])) {
+    if (!is.numeric(controls[["time_limit"]])) {
+      stop("'controls$time_limit' must be a numeric.",
+        call. = FALSE
+      )
+    }
+  }
   return(controls)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/initialize.R
 \name{initialize}
 \alias{initialize}
-\title{Initialize VNTRS.}
+\title{Initialize search}
 \usage{
 initialize(f, npar, minimize, controls)
 }
@@ -60,3 +60,4 @@ of each identified optimum.
 \description{
 Function that initializes the variable neighborhood trust region search.
 }
+\keyword{internal}

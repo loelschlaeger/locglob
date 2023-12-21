@@ -2,7 +2,7 @@
 % Please edit documentation in R/select_neighbors.R
 \name{select_neighbors}
 \alias{select_neighbors}
-\title{Select neighbors.}
+\title{Select neighbors}
 \usage{
 select_neighbors(f, x, neighborhood_expansion, controls)
 }
@@ -51,3 +51,4 @@ A list points in the domain of \code{f} which neighbors of \code{x}.
 \description{
 Function that selects neighbors around a given point \code{x}.
 }
+\keyword{internal}
