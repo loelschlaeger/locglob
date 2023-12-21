@@ -9,3 +9,5 @@ make_sticker.R
 ^docs$
 ^pkgdown$
 ^development_packages\.R$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
