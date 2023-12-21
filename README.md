@@ -1,9 +1,9 @@
 # vntrs <a href="https://loelschlaeger.de/vntrs/"><img src="man/figures/logo.png" align="right" height="139" alt="vntrs website" /></a>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/loelschlaeger/vntrs/workflows/R-CMD-check/badge.svg)](https://github.com/loelschlaeger/vntrs/actions)
 [![CRAN status](https://www.r-pkg.org/badges/version-last-release/vntrs)](https://www.r-pkg.org/badges/version-last-release/vntrs)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/vntrs)](https://cranlogs.r-pkg.org/badges/grand-total/vntrs)
+[![R-CMD-check](https://github.com/loelschlaeger/vntrs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/loelschlaeger/vntrs/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## About
