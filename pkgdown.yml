@@ -1,9 +1,9 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-10-15T08:06Z
+last_built: 2023-12-21T10:28Z
 urls:
-  reference: https://loelschlaeger.github.io/vntrs//reference
-  article: https://loelschlaeger.github.io/vntrs//articles
+  reference: https://loelschlaeger.de/vntrs/reference
+  article: https://loelschlaeger.de/vntrs/articles
 

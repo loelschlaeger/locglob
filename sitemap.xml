@@ -1,30 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//index.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/404.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/check_controls.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/check_f.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/authors.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/initialize.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/index.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/interruption.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/news/index.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/local.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/reference/check_controls.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/select_neighbors.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/reference/check_f.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/unique_optimum.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://loelschlaeger.github.io/vntrs//reference/vntrs.html</loc>
+    <loc>https://loelschlaeger.de/vntrs/reference/initialize.html</loc>
+  </url>
+  <url>
+    <loc>https://loelschlaeger.de/vntrs/reference/interruption.html</loc>
+  </url>
+  <url>
+    <loc>https://loelschlaeger.de/vntrs/reference/local.html</loc>
+  </url>
+  <url>
+    <loc>https://loelschlaeger.de/vntrs/reference/select_neighbors.html</loc>
+  </url>
+  <url>
+    <loc>https://loelschlaeger.de/vntrs/reference/unique_optimum.html</loc>
+  </url>
+  <url>
+    <loc>https://loelschlaeger.de/vntrs/reference/vntrs-package.html</loc>
+  </url>
+  <url>
+    <loc>https://loelschlaeger.de/vntrs/reference/vntrs.html</loc>
   </url>
 </urlset>
