@@ -1,4 +1,4 @@
-# vntrs <img src="man/figures/logo.png" align="right" height=136 />
+# vntrs <a href="https://loelschlaeger.de/vntrs/"><img src="man/figures/logo.png" align="right" height="139" alt="vntrs website" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/loelschlaeger/vntrs/workflows/R-CMD-check/badge.svg)](https://github.com/loelschlaeger/vntrs/actions)
@@ -8,7 +8,7 @@
 
 ## About
 
-This package is an implementation of the variable neighborhood trust region algorithm Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization". 
+This package is an implementation of the variable neighborhood trust region search algorithm Bierlaire et al. (2009) "A Heuristic for Nonlinear Global Optimization". 
 
 ## How to get started
 

@@ -3,4 +3,3 @@
 export(check_controls)
 export(vntrs)
 importFrom(stats,runif)
-importFrom(utils,packageVersion)
