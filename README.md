@@ -4,6 +4,7 @@
 [![R-CMD-check](https://github.com/loelschlaeger/vntrs/workflows/R-CMD-check/badge.svg)](https://github.com/loelschlaeger/vntrs/actions)
 [![CRAN status](https://www.r-pkg.org/badges/version-last-release/vntrs)](https://www.r-pkg.org/badges/version-last-release/vntrs)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/vntrs)](https://cranlogs.r-pkg.org/badges/grand-total/vntrs)
+[![Codecov test coverage](https://codecov.io/gh/loelschlaeger/vntrs/branch/main/graph/badge.svg)](https://app.codecov.io/gh/loelschlaeger/vntrs?branch=main)
 <!-- badges: end -->
 
 ## About
