@@ -1,7 +1,7 @@
 #' Check controls
 #'
 #' @description
-#' This function checks the input \code{controls} for the {vntrs} package.
+#' This function checks the input \code{controls}.
 #'
 #' @param controls
 #' Either \code{NULL} or a named list with the following elements. Missing

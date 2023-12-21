@@ -1,7 +1,7 @@
 #' Check function
 #'
 #' @description
-#' This function checks the input \code{f} for the {vntrs} package.
+#' This function checks the input \code{f}.
 #'
 #' @param f
 #' A function that computes value, gradient, and Hessian of the function to be

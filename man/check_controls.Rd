@@ -41,5 +41,5 @@ The time limit in seconds for the algorithm.
 The checked and filled list \code{controls}.
 }
 \description{
-This function checks the input \code{controls} for the {vntrs} package.
+This function checks the input \code{controls}.
 }
