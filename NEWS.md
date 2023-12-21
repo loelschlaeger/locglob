@@ -1,3 +1,7 @@
-## vntrs 0.1.0
+# vntrs 0.1.1
 
-Initial version.
+* Small bug fixes.
+
+# vntrs 0.1.0
+
+* Initial release.
