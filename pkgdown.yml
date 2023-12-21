@@ -2,7 +2,7 @@ pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles: {}
-last_built: 2023-12-21T10:28Z
+last_built: 2023-12-21T10:37Z
 urls:
   reference: https://loelschlaeger.de/vntrs/reference
   article: https://loelschlaeger.de/vntrs/articles
