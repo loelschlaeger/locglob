@@ -23,7 +23,6 @@
 #' @importFrom stats runif
 
 initialize <- function(f, npar, minimize, controls) {
-
   ### initialize list of identified optima
   L <- list()
 
@@ -35,7 +34,6 @@ initialize <- function(f, npar, minimize, controls) {
   local_searches <- list()
   cat("* Apply local search at", controls$init_runs, "random starting points.\n")
   for (n in seq_len(controls$init_runs)) {
-
     ### perform local search
     cat("** Run", n)
     start <- Sys.time()

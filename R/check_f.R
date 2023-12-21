@@ -20,7 +20,6 @@
 #' @importFrom stats runif
 
 check_f <- function(f, npar, controls) {
-
   ### check inputs
   if (!is.function(f)) {
     stop("'f' must be a function.",

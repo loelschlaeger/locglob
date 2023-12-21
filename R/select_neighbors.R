@@ -18,7 +18,6 @@
 #' @importFrom stats runif
 
 select_neighbors <- function(f, x, neighborhood_expansion, controls) {
-
   ### list of neighbors
   z <- list()
 

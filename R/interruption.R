@@ -15,7 +15,6 @@
 #' internal
 
 interruption <- function(f, point, L, minimize) {
-
   ### no interruption if 'L' is empty
   if (length(L) == 0) {
     return(FALSE)

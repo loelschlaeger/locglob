@@ -45,7 +45,6 @@
 
 vntrs <- function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
                   seed = NULL) {
-
   ### check inputs
   if (!is.logical(minimize)) {
     stop("'minimize' must be a boolean.",
@@ -97,7 +96,6 @@ vntrs <- function(f, npar, minimize = TRUE, controls = NULL, quiet = TRUE,
 
     ### perform local search around neighbors
     for (j in seq_len(length(z))) {
-
       ### check total time
       if (!is.null(controls$time_limit)) {
         if (difftime(Sys.time(), start_time, units = "secs") > controls$time_limit) {

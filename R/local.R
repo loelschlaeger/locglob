@@ -22,7 +22,6 @@
 #' internal
 
 local <- function(f, parinit, minimize, controls, L) {
-
   ### do not check premature interruption if 'L' is empty or
   ### 'controls$only_global' = FALSE
   if (length(L) == 0) {
